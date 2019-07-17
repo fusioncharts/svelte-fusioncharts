@@ -1,25 +1,49 @@
 <script>
     import FusionCharts from 'fusioncharts/core';
-    import column2d from 'fusioncharts/viz/column2d';
+    import FCCharts from 'fusioncharts/charts';
+    import { onMount, onDestroy, beforeUpdate, afterUpdate } from 'svelte';
 
+    // props
     export let chartConstructor = FusionCharts,
-        chartType = column2d,
+        Charts = FCCharts,
+        id = 'chart1',
+        className = '',
+        type = 'column2d',
+        renderAt = '__svelte_fc_chart_container',
+        width = '600',
+        height = '350',
+        dataFormat = 'json',
+        dataSource = {};
+
+    let chart,
         chartConfig = {
-            type: chartType.getName() + '',
-            renderAt: '__svelte_fc_chart_container',
-            width: '600',
-            height: '350',
-            dataFormat: 'json',
-            dataSource: {}
+            id,
+            type,
+            renderAt,
+            width,
+            height,
+            dataFormat,
+            dataSource
         };
 
-    chartConstructor.options.creditLabel = 0;
-    chartConstructor.addDep(chartType);
+    chartConstructor.addDep(Charts);
 
-    chartConstructor.ready(function () {
-        let chart = new chartConstructor(chartConfig);
+    onMount(() => {
+        chart = new chartConstructor(chartConfig);
         chart.render();
+        // console.log('onMount');
     });
+    beforeUpdate(() => {
+        // console.log(type, chartConfig.type);
+        // console.log('beforeUpdate');
+    });
+    afterUpdate(() => {
+        // console.log('afterUpdate');
+    });
+    onDestroy(() => {
+        // console.log('destroyed');
+        chart.dispose();
+    })
 </script>
 
-<div id="__svelte_fc_chart_container">FC!!</div>
+<div {className} id={renderAt}></div>

@@ -1,29 +1,42 @@
 <script>
 	import FusionCharts from 'fusioncharts/core';
-	import area2d from 'fusioncharts/viz/area2d';
 	import SvelteFC from './SvelteFC.svelte';
+	import Charts from 'fusioncharts/charts';
+	import { beforeUpdate } from 'svelte';
 
 	export let name;
 
-	let chartConfig = {
-		type: 'area2d',
-		renderAt: '__svelte_fc_chart_container',
-		width: '600',
-		height: '350',
-		dataFormat: 'json',
-		dataSource: {
-			chart: {
-				caption: 'Caption'
-			},
-			data: [{
-				label: 'Jan',
-				value: '1000'
-			}, {
-				label: 'Feb',
-				value: '2000'
-			}]
-		}
-	};
+	let status = 0,
+		chartConfig = {
+			type: 'column2d',
+			renderAt: 'di',
+			width: '600',
+			height: '350',
+			dataFormat: 'json',
+			dataSource: {
+				chart: {
+					caption: 'Caption'
+				},
+				data: [{
+					label: 'Jan',
+					value: '1000'
+				}, {
+					label: 'Feb',
+					value: '2000'
+				}]
+			}
+		};
+
+	$: curStatus = status + status;
+	const onClickHandler = function () {
+		status = (status + 1) % 2;
+		// chartConfig.type = 'line';
+		// if (status === 1) {
+		// 	chartConfig.type = 'line';
+		// } else {
+		// 	chartConfig.type = 'area2d';
+		// }
+	}
 </script>
 
 <style>
@@ -33,4 +46,6 @@
 </style>
 
 <h1>Hello {name}!</h1>
-<SvelteFC />
+<button on:click={onClickHandler}>Click Me{curStatus}!!</button>
+
+<SvelteFC {Charts} {...chartConfig} />
