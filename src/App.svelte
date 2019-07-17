@@ -27,7 +27,6 @@
 			}
 		};
 
-	$: curStatus = status + status;
 	const onClickHandler = function () {
 		status = (status + 1) % 2;
 		// chartConfig.type = 'line';
@@ -46,6 +45,6 @@
 </style>
 
 <h1>Hello {name}!</h1>
-<button on:click={onClickHandler}>Click Me{curStatus}!!</button>
+<button on:click={onClickHandler}>Click Me!!</button>
 
 <SvelteFC {Charts} {...chartConfig} />
