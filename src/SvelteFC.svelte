@@ -5,7 +5,8 @@
     import {
         isResizeRequired,
         isChartTypeChanged,
-        isDataSourceUpdated 
+        isDataSourceUpdated,
+        cloneObject
     } from './utils.js';
 
     // props
@@ -22,15 +23,7 @@
 
     let chart,
         key,
-        oldChartConfig = {
-            id,
-            type,
-            renderAt,
-            width,
-            height,
-            dataFormat,
-            dataSource
-        },
+        oldChartConfig = {},
         chartConfig = {};
 
     chartConstructor.addDep(Charts);
@@ -48,12 +41,13 @@
             width,
             height,
             dataFormat,
-            dataSource
+            dataSource: cloneObject(dataSource)
         };
     });
     onMount(() => {
         chart = new chartConstructor(chartConfig);
         chart.render();
+        oldChartConfig = cloneObject(chartConfig);
     });
     afterUpdate(() => {
         if (isResizeRequired(oldChartConfig, chartConfig)) {
@@ -64,18 +58,14 @@
             chart.chartType(chartConfig.type);
         }
 
-        // if (isChartTypeChanged(oldChartConfig, chartConfig)) {
-        //     chart.chartType(chartConfig.type);
-        // }
-
-        oldChartConfig = {};
-        for (key in chartConfig) {
-            oldChartConfig[key] = chartConfig[key];
+        if (isDataSourceUpdated(oldChartConfig, chartConfig)) {
+            chart.setJSONData(chartConfig.dataSource);
         }
+
+        oldChartConfig = cloneObject(chartConfig);
     });
     onDestroy(() => {
-        // console.log('destroyed');
-        // chart.dispose();
+        chart.dispose();
     })
 </script>
 

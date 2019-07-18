@@ -29,12 +29,11 @@
 
 	const onClickHandler = function () {
 		status = (status + 1) % 2;
-		// chartConfig.type = 'line';
-		// if (status === 1) {
-		// 	chartConfig.type = 'line';
-		// } else {
-		// 	chartConfig.type = 'area2d';
-		// }
+		if (status === 1) {
+			chartConfig.dataSource.chart.caption = 'line';
+		} else {
+			chartConfig.dataSource.chart.caption = 'area2d';
+		}
 	}
 </script>
 
