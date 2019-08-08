@@ -19,12 +19,13 @@
         width = '600',
         height = '350',
         dataFormat = 'json',
-        dataSource = {};
+        dataSource = {},
+        events = {};
 
     let chart,
         key,
-        oldChartConfig = {},
-        chartConfig = {};
+        oldChartConfig,
+        chartConfig;
 
     chartConstructor.addDep(Charts);
 
@@ -41,27 +42,51 @@
             width,
             height,
             dataFormat,
-            dataSource: cloneObject(dataSource)
+            dataSource: cloneObject(dataSource),
+            events
         };
     });
     onMount(() => {
         chart = new chartConstructor(chartConfig);
         chart.render();
-        oldChartConfig = cloneObject(chartConfig);
+        // oldChartConfig = cloneObject(chartConfig);
     });
     afterUpdate(() => {
-        if (isResizeRequired(oldChartConfig, chartConfig)) {
-            chart.resizeTo(chartConfig.width, chartConfig.height);
-        }
+        // If not the first render
+        if (oldChartConfig) {
+            if (isResizeRequired(oldChartConfig, chartConfig)) {
+                chart.resizeTo(chartConfig.width, chartConfig.height);
+            }
 
-        if (isChartTypeChanged(oldChartConfig, chartConfig)) {
-            chart.chartType(chartConfig.type);
-        }
+            if (isChartTypeChanged(oldChartConfig, chartConfig)) {
+                chart.chartType(chartConfig.type);
+            }
 
-        if (isDataSourceUpdated(oldChartConfig, chartConfig)) {
-            chart.setJSONData(chartConfig.dataSource);
-        }
+            if (isDataSourceUpdated(oldChartConfig, chartConfig)) {
+                chart.setJSONData(chartConfig.dataSource);
+            }
 
+
+            if (chartConfig.events || oldChartConfig.events) {
+                let oldEvts = oldChartConfig.events,
+                newEvts = chartConfig.events;
+
+                // For all old events which got removed, remove them
+                for (let evt in oldEvts) {
+                    if (!newEvts || !newEvts[evt] || newEvts[evt] !== oldEvts[evt]) {
+                        chart.removeEventListener(evt, oldEvts[evt]);
+                    }
+                }
+                // add new evet listeners
+                for (let evt in newEvts) {
+                    if (!oldEvts || !oldEvts[evt] || newEvts[evt] !== oldEvts[evt]) {
+                        chart.addEventListener(evt, newEvts[evt]);
+                    }
+                }
+                
+                
+            }
+        }
         oldChartConfig = cloneObject(chartConfig);
     });
     onDestroy(() => {
@@ -69,5 +94,5 @@
     })
 </script>
 
-<div {className} id={renderAt}></div>
+<div class={className} id={renderAt}></div>
 <!-- <div>{width}</div> -->

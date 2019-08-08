@@ -24,6 +24,16 @@
 					label: 'Feb',
 					value: '2000'
 				}]
+			},
+			events: {
+				beforeRender: function () {
+					console.log('beforeRender');
+				},
+				chartClick: function () {
+					console.log('initial chart click');
+					
+				}
+
 			}
 		};
 
@@ -34,7 +44,15 @@
 		} else {
 			chartConfig.dataSource.chart.caption = 'area2d';
 		}
-	}
+	},
+	chartClick = () => {
+			console.log('external click');
+		},
+		changeClickHandler = () => {
+			chartConfig.events.chartClick = () => {
+					console.log('New click handler');
+				};
+		};
 </script>
 
 <style>
@@ -45,5 +63,6 @@
 
 <h1>Hello {name}!</h1>
 <button on:click={onClickHandler}>Click Me!!</button>
+<button on:click={changeClickHandler}>Click Me to change 'chartCkick' handler</button>
 
-<SvelteFC {Charts} {...chartConfig} />
+<SvelteFC {Charts} {...chartConfig} on:click={chartClick}/>
