@@ -5,15 +5,16 @@ const prod = mode === 'production';
 
 module.exports = {
 	entry: {
-		bundle: ['./src/main.js']
+		bundle: ['./src/index.js']
 	},
 	resolve: {
 		extensions: ['.mjs', '.js', '.svelte']
 	},
 	output: {
-		path: __dirname + '/public',
-		filename: '[name].js',
-		chunkFilename: '[name].[id].js'
+		library: 'SvelteFC',
+		libraryTarget: 'umd',
+		path: __dirname + '/dist',
+		filename: 'svelte-fusioncharts.js'
 	},
 	module: {
 		rules: [
@@ -46,6 +47,5 @@ module.exports = {
 		new MiniCssExtractPlugin({
 			filename: '[name].css'
 		})
-	],
-	devtool: prod ? false: 'source-map'
+	]
 };

@@ -1,6 +1,19 @@
+<script context="module">
+    let FusionCharts;
+
+    export function fcRoot (core, ...modules) {
+        FusionCharts = core;
+        modules.forEach(m => {
+            if ((m.getName && m.getType) || (m.name && m.type)) {
+                core.addDep(m);
+            } else {
+                m(core);
+            }
+        });
+    }
+</script>
+
 <script>
-    import FusionCharts from 'fusioncharts/core';
-    import FCCharts from 'fusioncharts/charts';
     import { onMount, onDestroy, beforeUpdate, afterUpdate } from 'svelte';
     import {
         isResizeRequired,
@@ -10,9 +23,7 @@
     } from './utils.js';
 
     // props
-    export let chartConstructor = FusionCharts,
-        Charts = FCCharts,
-        id,
+    export let id,
         className = '',
         type = 'column2d',
         renderAt = '__svelte_fc_chart_container',
@@ -26,8 +37,6 @@
         key,
         oldChartConfig,
         chartConfig;
-
-    chartConstructor.addDep(Charts);
 
     /**
      * Life cycle method sequence
@@ -47,9 +56,12 @@
         };
     });
     onMount(() => {
-        chart = new chartConstructor(chartConfig);
-        chart.render();
-        // oldChartConfig = cloneObject(chartConfig);
+        if (!FusionCharts) {
+            console.warn('Invalid FusionCharts constructor');
+        } else {
+            chart = new FusionCharts(chartConfig);
+            chart.render();
+        }
     });
     afterUpdate(() => {
         // If not the first render
@@ -95,4 +107,3 @@
 </script>
 
 <div class={className} id={renderAt}></div>
-<!-- <div>{width}</div> -->

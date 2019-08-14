@@ -1,6 +1,7 @@
 {
-  "name": "svelte-app",
+  "name": "svelte-fusioncharts",
   "version": "1.0.0",
+  "main": "dist/svelte-fusioncharts.js",
   "devDependencies": {
     "cross-env": "^5.2.0",
     "css-loader": "^2.1.1",
@@ -14,7 +15,7 @@
     "webpack-dev-server": "^3.3.1"
   },
   "scripts": {
-    "build": "cross-env NODE_ENV=production webpack",
+    "build": "rm -rf dist/ && cross-env NODE_ENV=production webpack",
     "dev": "webpack-dev-server --content-base public"
   },
   "dependencies": {
