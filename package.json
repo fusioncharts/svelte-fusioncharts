@@ -14,7 +14,17 @@
     "svelte": "^3.0.0"
   },
   "keywords": [
-    "svelte"
+    "svelte",
+    "fusioncharts",
+    "powercharts",
+    "fusionwidgets",
+    "fusionmaps",
+    "fusiontime",
+    "timeseries",
+    "wrapper",
+    "charting-library",
+    "svelte-fusioncharts",
+    "svelte-wrapper"
   ],
   "files": [
     "src",
@@ -23,9 +33,6 @@
   ],
   "description": "A simple and lightweight official Svelte component for FusionCharts JavaScript charting library. `svelte-fusioncharts` enables you to add JavaScript charts in your Svelte application or project without any hassle.",
   "version": "1.0.0",
-  "directories": {
-    "example": "examples"
-  },
   "dependencies": {},
   "repository": {
     "type": "git",
