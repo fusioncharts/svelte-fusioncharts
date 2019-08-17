@@ -64,80 +64,66 @@ For general instructions, refer to this [developer docs page](https://www.fusion
 
 ### Usage
 
-#### If you have created your app using `create-react-app`
 
-Import React, `react-fusioncharts` and FusionCharts in your app:
-
-```
-import React from 'react';
-import ReactDOM from 'react-dom';
-import FusionCharts from 'fusioncharts';
-import Charts from 'fusioncharts/fusioncharts.charts';
-import ReactFC from 'react-fusioncharts';
-
-ReactFC.fcRoot(FusionCharts, Charts);
-```
-
-#### If you have created your app using tools like `webpack` or `parcel`
-
-Import React, `react-fusioncharts` and FusionCharts in your app:
+Import `svelte-fusioncharts` and FusionCharts in your app:
 
 ```
-import React from 'react';
-import ReactDOM from 'react-dom';
-import FusionCharts from 'fusioncharts/core';
-import Column2d from 'fusioncharts/viz/column2d';
-import ReactFC from 'react-fusioncharts';
+<script>
+  import FusionCharts from 'fusioncharts/core';
+  import Column2d from 'fusioncharts/viz/column2d';
+  import SvelteFC, { fcRoot } from 'svelte-fusioncharts';
 
-ReactFC.fcRoot(FusionCharts, Column2d);
+  fcRoot(FusionCharts, Column2d);
+</script>
 ```
 
 Note: This way of import will not work in IE11 and below.
 
 ## Quick Start
 
-Here is a basic sample that shows how to create a chart using `react-fusioncharts`:
+Here is a basic sample that shows how to create a chart using `svelte-fusioncharts`:
 
 ```javascript
-import React from 'react';
-import ReactDOM from 'react-dom';
-import FusionCharts from 'fusioncharts';
-import Charts from 'fusioncharts/fusioncharts.charts';
-import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
-import ReactFC from 'react-fusioncharts';
+<script>
+  import FusionCharts from 'fusioncharts';
+  import Charts from 'fusioncharts/fusioncharts.charts';
+  import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
+  import SvelteFC, { fcRoot } from 'svelte-fusioncharts';
 
-ReactFC.fcRoot(FusionCharts, Charts, FusionTheme);
+  // Always set FusionCharts as the first parameter
+  fcRoot(FusionCharts, Charts, FusionTheme);
 
-const dataSource = {
-  chart: {
-    caption: 'Countries With Most Oil Reserves [2017-18]',
-    subCaption: 'In MMbbl = One Million barrels',
-    xAxisName: 'Country',
-    yAxisName: 'Reserves (MMbbl)',
-    numberSuffix: 'K',
-    theme: 'fusion'
-  },
-  data: [
-    { label: 'Venezuela', value: '290' },
-    { label: 'Saudi', value: '260' },
-    { label: 'Canada', value: '180' },
-    { label: 'Iran', value: '140' },
-    { label: 'Russia', value: '115' },
-    { label: 'UAE', value: '100' },
-    { label: 'US', value: '30' },
-    { label: 'China', value: '30' }
-  ]
-};
+  const dataSource = {
+    chart: {
+      caption: 'Countries With Most Oil Reserves [2017-18]',
+      subCaption: 'In MMbbl = One Million barrels',
+      xAxisName: 'Country',
+      yAxisName: 'Reserves (MMbbl)',
+      numberSuffix: 'K',
+      theme: 'fusion'
+    },
+    data: [
+      { label: 'Venezuela', value: '290' },
+      { label: 'Saudi', value: '260' },
+      { label: 'Canada', value: '180' },
+      { label: 'Iran', value: '140' },
+      { label: 'Russia', value: '115' },
+      { label: 'UAE', value: '100' },
+      { label: 'US', value: '30' },
+      { label: 'China', value: '30' }
+    ]
+  };
 
-const chartConfigs = {
-  type: 'column2d',
-  width: 600,
-  height: 400,
-  dataFormat: 'json',
-  dataSource: dataSource
-};
+  const chartConfigs = {
+    type: 'column2d',
+    width: 600,
+    height: 400,
+    dataFormat: 'json',
+    dataSource: dataSource
+  };
+</script>
 
-ReactDOM.render(<ReactFC {...chartConfigs} />, document.getElementById('root'));
+<SvelteFC {...chartConfigs} />
 ```
 
 ## Render FusionMaps
@@ -145,55 +131,56 @@ ReactDOM.render(<ReactFC {...chartConfigs} />, document.getElementById('root'));
 To render a map, import the FusionMaps module along with the map definition.
 
 ```javascript
-import React from 'react';
-import ReactDOM from 'react-dom';
-import FusionCharts from 'fusioncharts';
-import Maps from 'fusioncharts/fusioncharts.maps';
-import World from 'fusioncharts/maps/fusioncharts.world';
-import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
-import ReactFC from 'react-fusioncharts';
+<script>
+  import FusionCharts from 'fusioncharts';
+  import Maps from 'fusioncharts/fusioncharts.maps';
+  import World from 'fusioncharts/maps/fusioncharts.world';
+  import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
+  import SvelteFC, { fcRoot } from 'react-fusioncharts';
 
-ReactFC.fcRoot(FusionCharts, Maps, World, FusionTheme);
-// Data Source B
-const dataSource = {
-  chart: {
-    caption: 'Average Annual Population Growth',
-    subcaption: ' 1955-2015',
-    numbersuffix: '%',
-    includevalueinlabels: '1',
-    labelsepchar: ': ',
-    entityFillHoverColor: '#FFF9C4',
-    theme: 'fusion'
-  },
-  colorrange: {
-    minvalue: '0',
-    code: '#FFE0B2',
-    gradient: '1',
-    color: [
-      { minvalue: '0.5', maxvalue: '1.0', color: '#FFD74D' },
-      { minvalue: '1.0', maxvalue: '2.0', color: '#FB8C00' },
-      { minvalue: '2.0', maxvalue: '3.0', color: '#E65100' }
+  // Always set FusionCharts as the first parameter
+  fcRoot(FusionCharts, Maps, World, FusionTheme);
+  
+  const dataSource = {
+    chart: {
+      caption: 'Average Annual Population Growth',
+      subcaption: ' 1955-2015',
+      numbersuffix: '%',
+      includevalueinlabels: '1',
+      labelsepchar: ': ',
+      entityFillHoverColor: '#FFF9C4',
+      theme: 'fusion'
+    },
+    colorrange: {
+      minvalue: '0',
+      code: '#FFE0B2',
+      gradient: '1',
+      color: [
+        { minvalue: '0.5', maxvalue: '1.0', color: '#FFD74D' },
+        { minvalue: '1.0', maxvalue: '2.0', color: '#FB8C00' },
+        { minvalue: '2.0', maxvalue: '3.0', color: '#E65100' }
+      ]
+    },
+    data: [
+      { id: 'NA', value: '.82', showLabel: '1' },
+      { id: 'SA', value: '2.04', showLabel: '1' },
+      { id: 'AS', value: '1.78', showLabel: '1' },
+      { id: 'EU', value: '.40', showLabel: '1' },
+      { id: 'AF', value: '2.58', showLabel: '1' },
+      { id: 'AU', value: '1.30', showLabel: '1' }
     ]
-  },
-  data: [
-    { id: 'NA', value: '.82', showLabel: '1' },
-    { id: 'SA', value: '2.04', showLabel: '1' },
-    { id: 'AS', value: '1.78', showLabel: '1' },
-    { id: 'EU', value: '.40', showLabel: '1' },
-    { id: 'AF', value: '2.58', showLabel: '1' },
-    { id: 'AU', value: '1.30', showLabel: '1' }
-  ]
-};
+  };
 
-const chartConfigs = {
-  type: 'world',
-  width: 600,
-  height: 400,
-  dataFormat: 'json',
-  dataSource: dataSource
-};
+  const chartConfigs = {
+    type: 'world',
+    width: 600,
+    height: 400,
+    dataFormat: 'json',
+    dataSource: dataSource
+  };
+</script>
 
-ReactDOM.render(<ReactFC {...chartConfigs} />, document.getElementById('root'));
+<SvelteFC {...chartConfigs} />
 ```
 
 ## Working with Events
@@ -375,82 +362,6 @@ Useful links for FusionTime
 - [How FusionTime works](https://www.fusioncharts.com/dev/fusiontime/getting-started/how-fusion-time-works)
 - [Create your first chart](https://www.fusioncharts.com/dev/fusiontime/getting-started/create-your-first-chart-in-fusiontime)
 
-## Drill Down Component
-
-A custom component to easily add drill down to your react application.
-
-### Syntax
-
-```javascript
-import FusionCharts from 'fusioncharts';
-import Charts from 'fusioncharts/fusioncharts.charts';
-import ReactFC from 'react-fusioncharts';
-import DrillDown from 'react-fusioncharts/components/DrillDown';
-DrillDown.fcRoot(FusionCharts, Charts);
-```
-
-```jsx
-class MyComponent extends React.Component{
-  constructor(props){
-    super(props);
-    this.plotChildMap = [ 0, 2, 1 ];
-    this.dataSource = /*Data Source A : Given above */   ;
-    this.btnConfig = {text : 'Back'};
-    this.type= 'column2d';
-    this.height = 400;
-    this.width = 400;
-  }
-  render(){
-    return (
-       <DrillDown
-        dataSource={dataSource}
-        plotChildMap={plotChildMap}
-        btnConfig={btnConfig}
-        btnStyle={btnStyle}
-        dataFormat={dataFormat}
-        type={type}
-        height={height}
-        width={width}
-        ...other
-        >
-        <ReactFC />              /* ReactFC as a child */
-        <ReactFC />
-        ...
-        <DrillDown></DrillDown> /* DrillDown as a child for next level drill down*/
-      </DrillDown>
-    )
-  }
-}
-```
-
-#### Attribute Description
-
-- plotChildMap[Array(Number)| Array[Object]]
-
-  - Array ( Number ) - Representation of child mapped to the plot of the parent data source passed to the `DrillDown`
-    component . Array location are considered plot index of parent, the value corresponding to it are considered which child chart to render.
-    `Eg. [0,2,1]`  
-     `0(location) -> 0 (value)` means clicking the first (zero indexed) data plot , render the 0th child ,  
-     `1(location) -> 2(value)` means clicking the second data plot, render the 1st Child (Note: It is 0-indexed )  
-     **Null case** : You can pass `null` for a data plot for which you dont want a drill down.
-  - Array ( Object ) - Representation of child mapped with plot in form of an object of shape  
-    `{ "plotPosition": Number, "childPosition": Number }`  
-    This object holds information about which child render on a data plot is clicked.  
-    `Eg. [{ plotPosition: 1 , childPosition: 0}, { plotPosition: 0, childPosition: 1}]`  
-    Note: plotChildMap does not honour heterogeneous data , eg. Number and Object
-    both.  
-    `[ 0 , { plotPosition:0, childPosition: 1 } ]`
-
-- btnConfig [Object]- Basic configuration without overriding the default button styles
-  - `text`: PropTypes.string - Button Text
-  - `color`: PropTypes.string
-  - `backgroundColor`: PropTypes.string
-  - `borderColor`: PropTypes.string
-  - `fontSize`: PropTypes.string
-  - `fontWeight`: PropTypes.string
-  - `padding`: PropTypes.string
-  - `fontFamily`: PropTypes.string
-- btnStyle [Object] - CSS styles which override the styles in default btnConfig except `text`.
 
 ## Working with APIs
 
