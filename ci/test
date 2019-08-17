@@ -1,7 +1,0 @@
-#!/bin/bash
-
-set -e;
-
-npm run build;
-
-cp dist/svelte-fusioncharts.js examples/src/svelte-fusioncharts.js;
