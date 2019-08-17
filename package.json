@@ -1,5 +1,5 @@
 {
-  "name": "SvelteComponent",
+  "name": "svelte-fusioncharts",
   "svelte": "src/index.svelte",
   "module": "index.mjs",
   "main": "index.js",
@@ -20,5 +20,21 @@
     "src",
     "index.mjs",
     "index.js"
-  ]
+  ],
+  "description": "A simple and lightweight official Svelte component for FusionCharts JavaScript charting library. `svelte-fusioncharts` enables you to add JavaScript charts in your Svelte application or project without any hassle.",
+  "version": "1.0.0",
+  "directories": {
+    "example": "examples"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/priyanjitdey94/svelte-fusioncharts.git"
+  },
+  "author": "Priyanjit Dey <priyanjit.dey@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/priyanjitdey94/svelte-fusioncharts/issues"
+  },
+  "homepage": "https://github.com/priyanjitdey94/svelte-fusioncharts#readme"
 }
