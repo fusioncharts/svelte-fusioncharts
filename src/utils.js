@@ -33,7 +33,7 @@ const ATOMIC_DATA_TYPE = ['string', 'number', 'function', 'boolean', 'undefined'
 
             for (key in arg) {
                 if (key === 'data') {
-                    if (arg[key]._dataStore) {
+                    if (arg[key] && arg[key]._dataStore) {
                         cloneObj[key] = (purpose === 'clone') ? arg[key] : '-' 
                     } else {
                         cloneObj[key] = cloneObject(arg[key], purpose);
