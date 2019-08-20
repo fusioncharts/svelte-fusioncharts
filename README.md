@@ -241,7 +241,7 @@ To attach event callbacks to a FusionCharts component, follow the sample below.
 
 ## Usage and integration of FusionTime
 
-From `fusioncharts@3.13.3-sr.1` and `react-fusioncharts@3.0.0`, You can visualize timeseries data easily on react.
+From `fusioncharts@3.13.3-sr.1`, You can visualize timeseries data.
 
 Learn more about FusionTime [here](https://www.fusioncharts.com/fusiontime).
 
