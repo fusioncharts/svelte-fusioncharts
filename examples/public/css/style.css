@@ -318,9 +318,9 @@ body {
 }
 
 /* Demo */
-.btn {
+/* .btn {
   font-family: 'Source Sans Pro';
-}
+} */
 .btn.btn-custom {
   background: #4a4d8c;
   transition: all 300ms;

@@ -1,3 +1,25 @@
+<script>
+  import CodeMirror from 'codemirror';
+  import sampleConfig from '../helpers/samples.js';
+  import { onMount } from 'svelte';
+
+  let chartCode,
+    jsonCode;
+
+  onMount(() => {
+    jsonCode = CodeMirror(chartCode, {
+      tabSize: '4',
+      smartIndent: true,
+      lineNumbers: true,
+      readOnly: true,
+      theme: 'dracula',
+      mode: 'javascript'
+    });
+
+    jsonCode.setValue(sampleConfig['simple-chart']['code']);
+  });
+</script>
+
 <!-- Demo Section start -->
 <div class="demo bg-light-purple pt-4 pb-4">
   <div class="container container-1200 info-wrapper">
@@ -326,7 +348,7 @@
             <div class="card-body p-0">
               <div class="code-panel">
                 <div class="code-panel-header">
-                  <div id="chartCode"></div>
+                  <div bind:this={chartCode} id="chartCode"></div>
                 </div>
               </div>
             </div>
