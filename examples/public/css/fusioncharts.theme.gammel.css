@@ -1,0 +1,36 @@
+body {
+	font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, sans-serif;
+}
+
+.uk-navbar-container:not(.uk-navbar-transparent) {
+	background-color: #6F8BFC !important;
+	box-shadow: 7px 0px 30px 0 rgba(86, 119, 252, 0.18);
+}
+
+#mainlogo {
+	color: #FDFEFD;
+}
+
+
+.uk-card-body {
+	padding: 0px 0px;
+}
+
+#chartdata {
+	background-color: #F8F8F8;
+	color: #F0506E;
+	font-family: Consolas,monaco,monospace;
+}
+
+#chartchange {
+	margin-top: 20px;
+}
+
+.uk-select {
+	border-radius: 3px;
+	border-color: #5677FC;
+}
+
+#info-div {
+	display: inline;
+}
