@@ -1,6 +1,6 @@
 <script>
   import CodeMirror from 'codemirror';
-  import sampleConfig from '../helpers/samples.js';
+  import sampleConfig from '../helpers/samples';
   import { onMount } from 'svelte';
 
   let chartCode,
@@ -8,7 +8,7 @@
 
   onMount(() => {
     jsonCode = CodeMirror(chartCode, {
-      tabSize: '4',
+      tabSize: '2',
       smartIndent: true,
       lineNumbers: true,
       readOnly: true,
