@@ -5,7 +5,7 @@ const code =
   import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
   import SvelteFC, {fcRoot} from 'svelte-fusioncharts';
 
-  fcRoot(FusionCharts, Column2d, FusionTheme);
+  fcRoot(FusionCharts, Charts, FusionTheme);
 
   const dataSource = { /* see data tab */ };
 
