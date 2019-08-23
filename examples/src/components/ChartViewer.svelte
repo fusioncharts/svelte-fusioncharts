@@ -25,7 +25,6 @@
       ...chartConfigs,
       ...dataSourceStore[sampleId]
     }
-    console.log(chartConfigs);
   });
 </script>
 

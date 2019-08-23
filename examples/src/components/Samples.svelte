@@ -14,7 +14,6 @@
 
   const updateSampleId = id => {
     sampleId = id;
-    console.log(sampleId);
   };
 
   onMount(() => {
