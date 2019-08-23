@@ -6,10 +6,11 @@
     title = '',
     description = '',
     selected = false,
-    badge = 'FusionTime';
+    badge = 'FusionTime',
+    idUpdateHandler = () => {};
 </script>
 
-<div data-id={dataId} class={(cssClass + (selected ? ' selected' : ''))}>
+<div data-id={dataId} class={(cssClass + (selected ? ' selected' : ''))} on:click={() => { idUpdateHandler(dataId); }}>
   {#if view === 'mobile'}
     <div class='p'>{title}</div>
   {:else}

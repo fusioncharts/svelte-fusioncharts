@@ -1,71 +1,21 @@
 <script>
   import CodeMirror from 'codemirror';
   import sampleConfig from '../helpers/samples';
-  import SvelteFC, { fcRoot } from '../../../index.mjs';
-  import FusionCharts from 'fusioncharts';
-  import Charts from 'fusioncharts/fusioncharts.charts';
-  import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
   import { onMount } from 'svelte';
 
   import ListItem from './ListItem.svelte';
+  import ChartViewer from './ChartViewer.svelte';
+
   import listItemInfo from './utils/list-item-info.js';
 
-  // chart configurations
-  fcRoot(FusionCharts, Charts, FusionTheme);
-  
-  let chartConfig = {
-    type: 'column2d',
-    renderAt: 'chart-div',
-    width: '100%',
-    height: '100%',
-    dataSource: {
-      "chart": {
-        "caption": "Countries With Most Oil Reserves [2017-18]",
-        "subCaption": "In MMbbl = One Million barrels",
-        "xAxisName": "Country",
-        "yAxisName": "Reserves (MMbbl)",
-        "numberSuffix": "K",
-        "theme": "fusion"
-      },
-      "data": [
-        {
-          "label": "Venezuela",
-          "value": "290"
-        },
-        {
-          "label": "Saudi",
-          "value": "260"
-        },
-        {
-          "label": "Canada",
-          "value": "180"
-        },
-        {
-          "label": "Iran",
-          "value": "140"
-        },
-        {
-          "label": "Russia",
-          "value": "115"
-        },
-        {
-          "label": "UAE",
-          "value": "100"
-        },
-        {
-          "label": "US",
-          "value": "30"
-        },
-        {
-          "label": "China",
-          "value": "30"
-        }
-      ]
-    }
-  };
-
   let chartCode,
-    jsonCode;
+    jsonCode,
+    sampleId = 'simple-chart';
+
+  const updateSampleId = id => {
+    sampleId = id;
+    console.log(sampleId);
+  };
 
   onMount(() => {
     jsonCode = CodeMirror(chartCode, {
@@ -112,6 +62,7 @@
               title={info.title}
               description={info.description}
               badge={info.badge}
+              idUpdateHandler={updateSampleId}
             />
           {/each}
         </div>
@@ -132,6 +83,7 @@
               title={info.title}
               description={info.description}
               badge={info.badge}
+              idUpdateHandler={updateSampleId}
             />
           {/each}
         </div>
@@ -143,7 +95,7 @@
               <!-- render chart here -->
               <div id="chart-container-wrapper">
                 <div title="chart-viewer" id="chart-container">
-                  <SvelteFC {...chartConfig} />
+                  <ChartViewer sampleId={sampleId} />
                 </div>
               </div>
             </div>
