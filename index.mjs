@@ -369,10 +369,8 @@ function instance($$self, $$props, $$invalidate) {
             }
 
             if (isChartTypeChanged(oldChartConfig, chartConfig)) {
-                chart.chartType(chartConfig.type);
-            }
-
-            if (isDataSourceUpdated(oldChartConfig, chartConfig)) {
+                chart.chartType(chartConfig.type, chartConfig);
+            } else if (isDataSourceUpdated(oldChartConfig, chartConfig)) {
                 chart.setJSONData(chartConfig.dataSource);
             }
 
