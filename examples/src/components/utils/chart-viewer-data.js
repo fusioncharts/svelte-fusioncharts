@@ -70,11 +70,109 @@ export default {
       }]
     }
   },
-  'column-line-area-combi-chart': {},
+  'simple-gauge': {
+    type: 'angulargauge',
+    dataSource: {
+      "chart": {
+        "caption": "Nordstorm's Customer Satisfaction Score for 2017",
+        "lowerLimit": "0",
+        "upperLimit": "100",
+        "showValue": "1",
+        "numberSuffix": "%",
+        "theme": "fusion",
+        "showToolTip": "0"
+      },
+      "colorRange": {
+        "color": [{
+          "minValue": "0",
+          "maxValue": "50",
+          "code": "#F2726F"
+        }, {
+          "minValue": "50",
+          "maxValue": "75",
+          "code": "#FFC533"
+        }, {
+          "minValue": "75",
+          "maxValue": "100",
+          "code": "#62B58F"
+        }]
+      },
+      "dials": {
+        "dial": [{
+          "value": "81"
+        }]
+      }
+    }
+  },
+  'column-line-area-combi-chart': {
+    type: 'mscombi2d',
+    dataSource: {
+      "chart": {
+        "caption": "Expense Analysis",
+        "subCaption": "ACME Inc.",
+        "xAxisname": "Region",
+        "yAxisName": "Amount (In USD)",
+        "numberPrefix": "$",
+        "theme": "fusion"
+      },
+      "categories": [{
+        "category": [{
+          "label": "East"
+        }, {
+          "label": "West"
+        }, {
+          "label": "South"
+        }, {
+          "label": "North"
+        }]
+      }],
+      "dataset": [{
+        "seriesName": "Actual Expenses",
+        "data": [{
+          "value": "1441290"
+        }, {
+          "value": "855912"
+        }, {
+          "value": "911404"
+        }, {
+          "value": "648136"
+        }]
+      }, {
+        "seriesName": "Budgeted Expenses",
+        "renderAs": "line",
+        "data": [{
+          "value": "1297430"
+        }, {
+          "value": "776485"
+        }, {
+          "value": "685352"
+        }, {
+          "value": "726791"
+        }]
+      }, {
+        "seriesName": "Unknown liabilities",
+        "renderAs": "area",
+        "showAnchors": "0",
+        "data": [{
+          "value": "143860"
+        }, {
+          "value": "79427"
+        }, {
+          "value": "226052"
+        }, {
+          "value": "78655"
+        }]
+      }]
+    }
+  },
   'column-chart-time-axis': {},
   'multi-series-time-axis': {},
   'multivariate-timeseries': {},
-  'fetch-data-from-json-url': {},
+  'fetch-data-from-json-url': {
+    type: 'column2d',
+    dataFormat: 'jsonurl',
+    dataSource: 'https://static.fusioncharts.com/sample/oilReserves.json'
+  },
   'fetch-data-from-xml-url': {},
   'update-chart-data': {},
   'update-chart-attributes': {},
