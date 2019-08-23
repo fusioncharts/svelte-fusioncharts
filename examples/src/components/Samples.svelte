@@ -6,14 +6,22 @@
   import ListItem from './ListItem.svelte';
   import ChartViewer from './ChartViewer.svelte';
 
-  import listItemInfo from './utils/list-item-info.js';
+  import listItemInfoAr from './utils/list-item-info.js';
 
-  let chartCode,
+  let listItemInfo = listItemInfoAr,
+    chartCode,
     jsonCode,
     sampleId = 'simple-chart';
 
   const updateSampleId = id => {
     sampleId = id;
+    listItemInfo = listItemInfo.map(item => {
+      item.selected = false;
+      if (item.dataId === id) {
+        item.selected = true;
+      }
+      return item;
+    });
   };
 
   onMount(() => {

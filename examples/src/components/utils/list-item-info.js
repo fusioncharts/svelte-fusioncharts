@@ -1,5 +1,6 @@
 let listItemInfo = [
   {
+    type: 'fusioncharts',
     dataId: 'simple-chart',
     cssClass: 'nav-item',
     selected: true,
@@ -34,6 +35,7 @@ let listItemInfo = [
     description: 'Time-series chart with series plotted as area'
   },
   {
+    type: 'fusioncharts',
     dataId: '3d-pie-chart',
     cssClass: 'nav-item',
     selected: false,
@@ -41,6 +43,7 @@ let listItemInfo = [
     description: 'A 3D pie chart using the datasource attribute from component\'s scope'
   },
   {
+    type: 'fusioncharts',
     dataId: 'simple-gauge',
     cssClass: 'nav-item',
     selected: false,
@@ -48,6 +51,7 @@ let listItemInfo = [
     description: 'A simple gauge to show customer satisfaction score'
   },
   {
+    type: 'fusioncharts',
     dataId: 'column-line-area-combi-chart',
     cssClass: 'nav-item',
     selected: false,
@@ -82,6 +86,7 @@ let listItemInfo = [
     description: 'Plotting 2 different variables in 2 different vertically stacked canvases'
   },
   {
+    type: 'fusioncharts',
     dataId: 'fetch-data-from-json-url',
     cssClass: 'nav-item',
     selected: false,
@@ -89,6 +94,7 @@ let listItemInfo = [
     description: 'Fetch data remotely from a JSON file or URL'
   },
   {
+    type: 'fusioncharts',
     dataId: 'fetch-data-from-xml-url',
     cssClass: 'nav-item',
     selected: false,
@@ -96,6 +102,7 @@ let listItemInfo = [
     description: 'Fetch data remotely from a XML file or URL'
   },
   {
+    type: 'fusioncharts',
     dataId: 'update-chart-data',
     cssClass: 'nav-item',
     selected: false,
@@ -103,6 +110,7 @@ let listItemInfo = [
     description: 'Change the data dynamically and watch the chart update automatically'
   },
   {
+    type: 'fusioncharts',
     dataId: 'update-chart-attributes',
     cssClass: 'nav-item',
     selected: false,
@@ -110,6 +118,7 @@ let listItemInfo = [
     description: 'Update the chart with new attributes'
   },
   {
+    type: 'fusioncharts',
     dataId: 'trigger-events-from-chart',
     cssClass: 'nav-item',
     selected: false,
@@ -117,6 +126,7 @@ let listItemInfo = [
     description: 'Bind event listener to the chart and get the related event data'
   },
   {
+    type: 'fusioncharts',
     dataId: 'percentage-calculation',
     cssClass: 'nav-item',
     selected: false,
@@ -124,6 +134,7 @@ let listItemInfo = [
     description: 'Hover on a plot to see the percentage value with respect to total'
   },
   {
+    type: 'fusioncharts',
     dataId: 'drill-down',
     cssClass: 'nav-item',
     selected: false,
@@ -167,6 +178,7 @@ let listItemInfo = [
     description: 'Plotting an event marker as a band, to indicate an event that spans a data range'
   },
   {
+    type: 'fusioncharts',
     dataId: 'export-charts',
     cssClass: 'nav-item',
     selected: false,
@@ -174,6 +186,7 @@ let listItemInfo = [
     description: 'Use Batch Export Feature to export multiple charts as a single image/PDF'
   },
   {
+    type: 'fusioncharts',
     dataId: 'world-map',
     cssClass: 'nav-item',
     selected: false,
@@ -181,6 +194,7 @@ let listItemInfo = [
     description: 'World map showing data for different continents'
   },
   {
+    type: 'fusioncharts',
     dataId: 'special-events',
     cssClass: 'nav-item',
     selected: false,
@@ -188,6 +202,7 @@ let listItemInfo = [
     description: 'Drag a projected column to see its change'
   },
   {
+    type: 'fusioncharts',
     dataId: 'render-alert',
     cssClass: 'nav-item',
     selected: false,
@@ -195,6 +210,7 @@ let listItemInfo = [
     description: 'This sample lists the basic lifecycle events at the time of rendering FusionCharts'
   },
   {
+    type: 'fusioncharts',
     dataId: 'dynamically-add-chart',
     cssClass: 'nav-item',
     selected: false,
@@ -202,6 +218,7 @@ let listItemInfo = [
     description: 'How you can dynamically(runtime) add & remove chart specific events in FusionCharts'
   },
   {
+    type: 'fusioncharts',
     dataId: 'slice-data-plots',
     cssClass: 'nav-item',
     selected: false,
@@ -209,6 +226,7 @@ let listItemInfo = [
     description: 'Use Chart specific custom API'
   },
   {
+    type: 'fusioncharts',
     dataId: 'responsive-charts',
     cssClass: 'nav-item',
     selected: false,
@@ -216,6 +234,7 @@ let listItemInfo = [
     description: 'Select any of the dimensions given in the list. The chart adjusts itself to its alloted percentage'
   },
   {
+    type: 'fusioncharts',
     dataId: 'change-chart-type',
     cssClass: 'nav-item',
     selected: false,
@@ -223,6 +242,7 @@ let listItemInfo = [
     description: 'Change the chart type dynamically or at runtime'
   },
   {
+    type: 'fusioncharts',
     dataId: 'use-annotations',
     cssClass: 'nav-item',
     selected: false,
@@ -230,6 +250,7 @@ let listItemInfo = [
     description: 'Add custom shapes to highlight a specific data point'
   },
   {
+    type: 'fusioncharts',
     dataId: 'update-chart-attribute-through-method',
     cssClass: 'nav-item',
     selected: false,
@@ -237,6 +258,7 @@ let listItemInfo = [
     description: 'Change a chart attribute by calling FusionCharts setChartAttribute API'
   },
   {
+    type: 'fusioncharts',
     dataId: 'apply-theme',
     cssClass: 'nav-item',
     selected: false,
