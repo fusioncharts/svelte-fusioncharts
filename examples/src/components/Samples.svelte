@@ -101,9 +101,9 @@
             <div class="chart-wrapper-inner">
               <!-- render chart here -->
               <div id="chart-container-wrapper">
-                <div title="chart-viewer" id="chart-container">
                   <ChartViewer sampleId={sampleId} />
-                </div>
+                <!-- <div title="chart-viewer" id="chart-container">
+                </div> -->
               </div>
             </div>
           </div>

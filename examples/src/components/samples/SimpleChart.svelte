@@ -6,6 +6,8 @@
 
   import dataSourceStore from '../utils/chart-viewer-data.js';
 
+  FusionCharts.options.creditLabel = false;
+
   fcRoot(FusionCharts, Charts, FusionTheme);
 
   let chartConfig = dataSourceStore['simple-chart'];

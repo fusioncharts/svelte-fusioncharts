@@ -1,6 +1,9 @@
 export default {
   'simple-chart': {
     type: 'column2d',
+    width: '100%',
+    height: '100%',
+    renderAt: 'chart-div',
     dataSource: {
       "chart": {
         "caption": "Countries With Most Oil Reserves [2017-18]",
@@ -42,6 +45,9 @@ export default {
   'area-time-axis': {},
   '3d-pie-chart': {
     type: 'pie3d',
+    width: '100%',
+    height: '100%',
+    renderAt: 'chart-div',
     dataSource: {
       "chart": {
         "caption": "Recommended Portfolio Split",
@@ -72,6 +78,9 @@ export default {
   },
   'simple-gauge': {
     type: 'angulargauge',
+    width: '100%',
+    height: '100%',
+    renderAt: 'chart-div',
     dataSource: {
       "chart": {
         "caption": "Nordstorm's Customer Satisfaction Score for 2017",
@@ -174,7 +183,47 @@ export default {
     dataSource: 'https://static.fusioncharts.com/sample/oilReserves.json'
   },
   'fetch-data-from-xml-url': {},
-  'update-chart-data': {},
+  'update-chart-data': {
+    type: 'column2d',
+    width: '100%',
+    height: '90%',
+    renderAt: 'chart-div',
+    dataSource: {
+      "chart": {
+        "caption": "Countries With Most Oil Reserves [2017-18]",
+        "subCaption": "In MMbbl = One Million barrels",
+        "xAxisName": "Country",
+        "yAxisName": "Reserves (MMbbl)",
+        "numberSuffix": "K",
+        "theme": "fusion"
+      },
+      "data": [{
+        "label": "Venezuela",
+        "value": "290"
+      }, {
+        "label": "Saudi",
+        "value": "260"
+      }, {
+        "label": "Canada",
+        "value": "180"
+      }, {
+        "label": "Iran",
+        "value": "140"
+      }, {
+        "label": "Russia",
+        "value": "115"
+      }, {
+        "label": "UAE",
+        "value": "100"
+      }, {
+        "label": "US",
+        "value": "30"
+      }, {
+        "label": "China",
+        "value": "30"
+      }]
+    }
+  },
   'update-chart-attributes': {},
   'trigger-events-from-chart': {},
   'percentage-calculation': {},
