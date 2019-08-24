@@ -390,3 +390,7 @@ iframe.export-charts {
 .strong {
   font-weight: bold;
 }
+
+.card-body {
+  padding: 0px;
+}
