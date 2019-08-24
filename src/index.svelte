@@ -59,8 +59,10 @@
         if (!FusionCharts) {
             console.warn('Invalid FusionCharts constructor');
         } else {
-            chart = new FusionCharts(chartConfig);
-            chart.render();
+            FusionCharts.ready(function () {
+                chart = new FusionCharts(chartConfig);
+                chart.render();
+            });
         }
     });
     afterUpdate(() => {
