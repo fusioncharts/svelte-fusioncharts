@@ -391,6 +391,9 @@ iframe.export-charts {
   font-weight: bold;
 }
 
+#chart-container-wrapper {
+  padding: 20px;
+}
 .card-body {
   padding: 0px;
 }

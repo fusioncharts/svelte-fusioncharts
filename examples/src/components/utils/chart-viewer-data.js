@@ -3,7 +3,7 @@ export default {
     type: 'column2d',
     width: '100%',
     height: '100%',
-    renderAt: 'chart-div',
+    renderAt: 'chart-container',
     dataSource: {
       "chart": {
         "caption": "Countries With Most Oil Reserves [2017-18]",
@@ -47,7 +47,7 @@ export default {
     type: 'pie3d',
     width: '100%',
     height: '100%',
-    renderAt: 'chart-div',
+    renderAt: 'chart-container',
     dataSource: {
       "chart": {
         "caption": "Recommended Portfolio Split",
@@ -80,7 +80,7 @@ export default {
     type: 'angulargauge',
     width: '100%',
     height: '100%',
-    renderAt: 'chart-div',
+    renderAt: 'chart-container',
     dataSource: {
       "chart": {
         "caption": "Nordstorm's Customer Satisfaction Score for 2017",
@@ -187,7 +187,7 @@ export default {
     type: 'column2d',
     width: '100%',
     height: '90%',
-    renderAt: 'chart-div',
+    renderAt: 'chart-container',
     dataSource: {
       "chart": {
         "caption": "Countries With Most Oil Reserves [2017-18]",

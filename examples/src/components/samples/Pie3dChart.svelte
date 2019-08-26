@@ -13,4 +13,6 @@
   let chartConfig = dataSourceStore['3d-pie-chart'];
 </script>
 
-<SvelteFC {...chartConfig} />
+<div id='chart-container' style='height: inherit;' >
+  <SvelteFC {...chartConfig} />
+</div>

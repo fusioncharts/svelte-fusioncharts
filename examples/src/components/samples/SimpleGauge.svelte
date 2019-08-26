@@ -13,4 +13,6 @@
   let chartConfig = dataSourceStore['simple-gauge'];
 </script>
 
-<SvelteFC {...chartConfig} />
+<div id='chart-container' style='height: inherit;' >
+  <SvelteFC {...chartConfig} />
+</div>
