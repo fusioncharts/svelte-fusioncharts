@@ -7,25 +7,30 @@
 
   let jsonify = res => res.json(),
     dataFetch = fetch(
-      'https://s3.eu-central-1.amazonaws.com/fusion.store/ft/data/column-chart-with-time-axis-data.json'
+      'https://s3.eu-central-1.amazonaws.com/fusion.store/ft/data/column-line-combination-data.json'
     ).then(jsonify),
     schemaFetch = fetch(
-      'https://s3.eu-central-1.amazonaws.com/fusion.store/ft/schema/column-chart-with-time-axis-schema.json'
+      'https://s3.eu-central-1.amazonaws.com/fusion.store/ft/schema/column-line-combination-schema.json'
     ).then(jsonify),
     dataSource = {
-      chart: {
-        showLegend: 0
-      },
       caption: {
-        text: 'Daily Visitors Count of a Website'
+        text: 'Web visits & downloads'
+      },
+      subcaption: {
+        text: 'since 2015'
       },
       yAxis: [
         {
-          plot: {
-            value: 'Daily Visitors',
-            type: 'column'
-          },
-          title: 'Daily Visitors (in thousand)'
+          plot: [
+            {
+              value: 'Downloads',
+              type: 'column'
+            },
+            {
+              value: 'Web Visits',
+              type: 'line'
+            }
+          ]
         }
       ]
     },

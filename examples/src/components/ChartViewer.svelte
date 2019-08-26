@@ -6,6 +6,7 @@
   import ChangeChartType from './samples/ChangeChartType.svelte';
   import ColumnChartTimeAxis from './samples/ColumnChartTimeAxis.svelte';
   import ColumnLineAreaCombi from './samples/ColumnLineAreaCombi.svelte';
+  import ColumnLineTimeAxis from './samples/ColumnLineTimeAxis.svelte';
   import DateEventOverlay from './samples/DateEventOverlay.svelte';
   import DrillDown from './samples/DrillDown.svelte';
   import DynamicallyAddChart from './samples/DynamicallyAddChart.svelte';
@@ -74,7 +75,7 @@
   {:else if sampleId === sampleNames.COLUMNLINEAREACOMBICHART}
     <ColumnLineAreaCombi />
   {:else if sampleId === sampleNames.COLUMNCHARTTIMEAXIS}
-    <ColumnChartTimeAxis />
+    <ColumnLineTimeAxis />
   {:else if sampleId === sampleNames.MULTISERIESTIMEAXIS}
     <MultiSeriesTimeAxis />
   {:else if sampleId === sampleNames.MULTIVARIATETIMESERIES}
