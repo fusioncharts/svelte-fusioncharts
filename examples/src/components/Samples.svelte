@@ -1,7 +1,10 @@
 <script>
   import CodeMirror from 'codemirror';
+  import js from 'codemirror/mode/javascript/javascript';
+  import 'codemirror/theme/dracula.css';
+
   import sampleConfig from '../helpers/samples';
-  import { onMount } from 'svelte';
+  import { onMount, afterUpdate } from 'svelte';
 
   import ListItem from './ListItem.svelte';
   import ChartViewer from './ChartViewer.svelte';
@@ -11,18 +14,60 @@
   let listItemInfo = listItemInfoAr,
     chartCode,
     jsonCode,
-    sampleId = 'simple-chart';
+    jsBtn,
+    htmlBtn,
+    dataBtn,
+    schemaBtn,
+    sampleId = 'simple-chart',
+    curItem = listItemInfo[0];
 
   const updateSampleId = id => {
-    sampleId = id;
-    listItemInfo = listItemInfo.map(item => {
-      item.selected = false;
-      if (item.dataId === id) {
-        item.selected = true;
+      sampleId = id;
+      listItemInfo = listItemInfo.map(item => {
+        item.selected = false;
+        if (item.dataId === id) {
+          curItem = item;
+          item.selected = true;
+        }
+        return item;
+      });
+    },
+    showJS = () => {
+      if (!jsBtn.classList.contains('selected')) {
+        jsBtn.classList.add('selected')
       }
-      return item;
-    });
-  };
+      jsonCode.setValue(sampleConfig[sampleId].code);
+      htmlBtn.classList.remove('selected');
+      dataBtn.classList.remove('selected');
+      schemaBtn && schemaBtn.classList.remove('selected');
+    },
+    showHTML = () => {
+      if (!htmlBtn.classList.contains('selected')) {
+        htmlBtn.classList.add('selected')
+      }
+      jsonCode.setValue(sampleConfig[sampleId].html);
+      jsBtn.classList.remove('selected');
+      dataBtn.classList.remove('selected');
+      schemaBtn && schemaBtn.classList.remove('selected');
+    },
+    showData = () => {
+      if (!dataBtn.classList.contains('selected')) {
+        dataBtn.classList.add('selected')
+      }
+      jsonCode.setValue(sampleConfig[sampleId].data);
+      htmlBtn.classList.remove('selected');
+      jsBtn.classList.remove('selected');
+      schemaBtn && schemaBtn.classList.remove('selected');
+    },
+    showSchema = () => {
+      if (!schemaBtn.classList.contains('selected')) {
+        schemaBtn.classList.add('selected')
+      }
+      jsonCode.setValue(sampleConfig[sampleId].schema || '');
+      htmlBtn.classList.remove('selected');
+      dataBtn.classList.remove('selected');
+      jsBtn.classList.remove('selected');
+    };
 
   onMount(() => {
     jsonCode = CodeMirror(chartCode, {
@@ -33,8 +78,18 @@
       theme: 'dracula',
       mode: 'javascript'
     });
+  });
 
-    jsonCode.setValue(sampleConfig['simple-chart']['code']);
+  afterUpdate(() => {
+    jsonCode.setValue(sampleConfig[sampleId]['code']);
+
+    htmlBtn.classList.remove('selected');
+    dataBtn.classList.remove('selected');
+    schemaBtn && schemaBtn.classList.remove('selected');
+
+    if (!jsBtn.classList.contains('selected')) {
+      jsBtn.classList.add('selected')
+    }
   });
 </script>
 
@@ -101,9 +156,7 @@
             <div class="chart-wrapper-inner">
               <!-- render chart here -->
               <div id="chart-container-wrapper">
-                  <ChartViewer sampleId={sampleId} />
-                <!-- <div title="chart-viewer" id="chart-container">
-                </div> -->
+                <ChartViewer sampleId={sampleId} />
               </div>
             </div>
           </div>
@@ -112,10 +165,52 @@
         <div class="code-view mt-2">
           <div class="card-shadow" style="background: #03040B;">
             <div class="code-nav-btns btn-group" role="group" aria-label="Basic example">
-              <button data-id="code" type="button" class="btn btn-code selected">JavaScript</button>
-              <button data-id="html" type="button" class="btn btn-code">HTML</button>
-              <button data-id="data" type="button" class="btn btn-code">Data</button>
-              <button data-id="schema" type="button" class="btn btn-code schema-btn hide">schema</button>
+              <button
+                bind:this={jsBtn}
+                on:click={() => {
+                  showJS('js');
+                }}
+                data-id="code"
+                type="button"
+                class="btn btn-code selected"
+              >
+                JavaScript
+              </button>
+              <button
+                bind:this={htmlBtn}
+                on:click={() => {
+                  showHTML('html');
+                }}
+                data-id="html"
+                type="button"
+                class="btn btn-code"
+              >
+                HTML
+              </button>
+              <button
+                bind:this={dataBtn}
+                on:click={() => {
+                  showData('data');
+                }}
+                data-id="data"
+                type="button"
+                class="btn btn-code"
+              >
+                Data
+              </button>
+              {#if curItem.type === 'fusiontime'}
+                <button
+                  bind:this={schemaBtn}
+                  on:click={() => {
+                    showSchema('schema');
+                  }}
+                  data-id="schema"
+                  type="button"
+                  class="btn btn-code schema-btn"
+                >
+                  Schema
+                </button>
+              {/if}
             </div>
             <div class="card-body p-0">
               <div class="code-panel">
