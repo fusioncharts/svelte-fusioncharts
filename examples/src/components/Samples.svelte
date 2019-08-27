@@ -1,6 +1,6 @@
 <script>
   import CodeMirror from 'codemirror';
-  import js from 'codemirror/mode/javascript/javascript';
+  import js from 'codemirror/mode/vue/vue';
   import 'codemirror/theme/dracula.css';
 
   import sampleConfig from '../helpers/samples';
@@ -76,7 +76,7 @@
       lineNumbers: true,
       readOnly: true,
       theme: 'dracula',
-      mode: 'javascript'
+      mode: 'vue'
     });
   });
 

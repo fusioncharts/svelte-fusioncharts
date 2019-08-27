@@ -52,7 +52,7 @@
 
  <style>
    .chart-container-500 {
-     height: 500px;
+     height: 450px;
    }
    .chart-container-1000 {
      height: 1000px;
