@@ -31,10 +31,10 @@
         height = '350',
         dataFormat = 'json',
         dataSource = {},
-        events = {};
+        events = {},
+        chart;
 
-    let chart,
-        key,
+    let key,
         oldChartConfig,
         chartConfig;
 

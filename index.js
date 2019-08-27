@@ -336,10 +336,9 @@
     	
 
         // props
-        let { id, className = '', type = 'column2d', renderAt = '__svelte_fc_chart_container', width = '600', height = '350', dataFormat = 'json', dataSource = {}, events = {} } = $$props;
+        let { id, className = '', type = 'column2d', renderAt = '__svelte_fc_chart_container', width = '600', height = '350', dataFormat = 'json', dataSource = {}, events = {}, chart } = $$props;
 
-        let chart,
-            oldChartConfig,
+        let oldChartConfig,
             chartConfig;
 
         /**
@@ -364,7 +363,7 @@
                 console.warn('Invalid FusionCharts constructor');
             } else {
                 FusionCharts.ready(function () {
-                    chart = new FusionCharts(chartConfig);
+                    $$invalidate('chart', chart = new FusionCharts(chartConfig));
                     chart.render();
                 });
             }
@@ -419,6 +418,7 @@
     		if ('dataFormat' in $$props) $$invalidate('dataFormat', dataFormat = $$props.dataFormat);
     		if ('dataSource' in $$props) $$invalidate('dataSource', dataSource = $$props.dataSource);
     		if ('events' in $$props) $$invalidate('events', events = $$props.events);
+    		if ('chart' in $$props) $$invalidate('chart', chart = $$props.chart);
     	};
 
     	return {
@@ -430,14 +430,15 @@
     		height,
     		dataFormat,
     		dataSource,
-    		events
+    		events,
+    		chart
     	};
     }
 
     class Index extends SvelteComponent {
     	constructor(options) {
     		super();
-    		init(this, options, instance, create_fragment, safe_not_equal, ["id", "className", "type", "renderAt", "width", "height", "dataFormat", "dataSource", "events"]);
+    		init(this, options, instance, create_fragment, safe_not_equal, ["id", "className", "type", "renderAt", "width", "height", "dataFormat", "dataSource", "events", "chart"]);
     	}
     }
 
