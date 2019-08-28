@@ -28,11 +28,11 @@ const code =
 </script>
 `,
 html =
-`<div id='chart-container' style='height: 90%;' >
+`<div id="chart-container" >
   <SvelteFC {...chartConfig} />
 </div>
 <div>
-  <p bind:this={para} id='message' style='padding: 10px; background: rgb(245, 242, 240);' >
+  <p bind:this={para} id="message" style="padding: 10px; background: rgb(245, 242, 240);" >
     Hover on the plot to see the value along with the label
   </p>
 </div>`,

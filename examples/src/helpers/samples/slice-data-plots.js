@@ -9,6 +9,7 @@ const code =
   fcRoot(FusionCharts, Charts, FusionTheme);
 
   let chartObj,
+    dataSource = { /* see data tab */ },
     chartConfig = {
       type: 'pie2d',
       width: '600',

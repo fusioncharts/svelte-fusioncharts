@@ -11,6 +11,7 @@ const code =
   fcRoot(FusionCharts, Charts, FusionTheme);
 
   let chartObj,
+    dataSource = { /* see data tab */ }
     chartConfig = {
       id: 'column-chart',
       type: 'column2d',

@@ -48,10 +48,10 @@ export default {
   'column-chart-time-axis': {
     ...ColumnChartTimeAxis
   },
-  'multi-series-chart-time-axis': {
+  'multi-series-time-axis': {
     ...MultiSeriesTimeAxis
   },
-  'multivariate-time-axis': {
+  'multivariate-timeseries': {
     ...MultiVariateTimeAxis
   },
   'adding-reference-line': {

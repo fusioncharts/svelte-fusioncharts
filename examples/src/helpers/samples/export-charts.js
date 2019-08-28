@@ -11,15 +11,15 @@ const code =
     chartConfigColumn = {
       type: 'column2d',
       renderAt: 'chart-container1',
-      width: '100%',
-      height: '100%',
+      width: '600',
+      height: '400',
       dataSource: dataSource.columnData
     },
     chartConfigStackedColumn = {
       type: 'stackedcolumn2d',
       renderAt: 'chart-container2',
-      width: '100%',
-      height: '100%',
+      width: '600',
+      height: '400',
       dataSource: dataSource.stackedColumnData
     };
 
@@ -229,4 +229,10 @@ data =
       }
     ]
   }
-}`
+}`;
+
+export default {
+  code,
+  html,
+  data
+};

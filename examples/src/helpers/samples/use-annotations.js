@@ -13,7 +13,7 @@ const code =
     width: '600',
     height: '400',
     renderAt: 'chart-container',
-    dataSource
+    dataSource: { /* see data tab */ }
   };
 </script>`,
 html =

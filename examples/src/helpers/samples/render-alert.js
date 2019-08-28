@@ -10,7 +10,7 @@ const code =
   fcRoot(FusionCharts, PowerCharts, FusionTheme);
 
   let para,
-    dataSource = ,
+    dataSource = { /* see data tab */ },
     chartConfig = {
       type: 'dragcolumn2d',
       renderAt: 'chart-container',
