@@ -18,6 +18,7 @@
     htmlBtn,
     dataBtn,
     schemaBtn,
+    modal,
     sampleId = 'simple-chart',
     curItem = listItemInfo[0];
 
@@ -67,6 +68,15 @@
       htmlBtn.classList.remove('selected');
       dataBtn.classList.remove('selected');
       jsBtn.classList.remove('selected');
+    },
+    toggleModal = state => {
+      if (state === 'hide') {
+        if (!modal.classList.contains('hidden')) {
+          modal.classList.add('hidden');
+        }
+      } else {
+        modal.classList.remove('hidden');
+      }
     };
 
   onMount(() => {
@@ -99,7 +109,7 @@
     <!-- Chart selection for mobile devices - start -->
     <div class="row">
       <div class="col-12 d-flex justify-content-center d-md-none">
-        <div id="mobileChart-selector" class="base-dropdown chart-selector">
+        <div id="mobileChart-selector" class="base-dropdown chart-selector" on:click={() => { toggleModal('show'); }}>
           <div class="selector">A Simple Chart</div>
           <div class="placeholder">Quick Demo:</div>
           <div class="caret">
@@ -109,7 +119,7 @@
       </div>
     </div>
     <!-- Modal for selection (Only for Mobile Devices) -->
-    <div id="myModal" class="modal hidden">
+    <div id="myModal" class="modal hidden" bind:this={modal} on:click={() => { toggleModal('hide'); }} >
 
       <!-- Modal content -->
       <div class="modal-content">
