@@ -11,8 +11,8 @@ const code =
 
   const chartConfigs = {
     type: 'column2d',
-    width: 600,
-    height: 400,
+    width: '600',
+    height: '400',
     dataFormat: 'json',
     dataSource: dataSource
   };

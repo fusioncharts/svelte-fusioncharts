@@ -4,7 +4,7 @@ const code =
   import Charts from 'fusioncharts/fusioncharts.charts';
 
   import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
-  import SvelteFC, { fcRoot } from '../../../../index.mjs';
+  import SvelteFC, { fcRoot } from 'svelte-fusioncharts';
 
   import { sampleNames } from '../utils/constants.js';
 

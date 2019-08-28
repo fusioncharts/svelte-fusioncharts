@@ -3,7 +3,7 @@ const code =
   import FusionCharts from 'fusioncharts';
   import PowerCharts from 'fusioncharts/fusioncharts.powercharts';
   import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
-  import SvelteFC, { fcRoot } from '../../../../index.mjs';
+  import SvelteFC, { fcRoot } from 'svelte-fusioncharts';
 
   import { onDestroy } from 'svelte';
 

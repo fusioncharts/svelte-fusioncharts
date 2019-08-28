@@ -3,7 +3,7 @@ const code =
   import FusionCharts from 'fusioncharts';
   import Widgets from 'fusioncharts/fusioncharts.widgets';
   import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
-  import SvelteFC, { fcRoot } from '../../../../index.mjs';
+  import SvelteFC, { fcRoot } from 'svelte-fusioncharts';
 
   fcRoot(FusionCharts, Widgets, FusionTheme);
 

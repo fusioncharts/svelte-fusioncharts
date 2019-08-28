@@ -2,7 +2,7 @@ const code =
 `<script>
   import FusionCharts from 'fusioncharts';
   import Timeseries from 'fusioncharts/fusioncharts.timeseries';
-  import SvelteFC, { fcRoot } from '../../../../index.mjs';
+  import SvelteFC, { fcRoot } from 'svelte-fusioncharts';
 
   fcRoot(FusionCharts, Timeseries);
 

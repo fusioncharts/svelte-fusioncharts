@@ -10,7 +10,7 @@ const code =
   import OceanTheme from 'fusioncharts/themes/fusioncharts.theme.ocean';
   import CarbonTheme from 'fusioncharts/themes/fusioncharts.theme.carbon';
 
-  import SvelteFC, { fcRoot } from '../../../../index.mjs';
+  import SvelteFC, { fcRoot } from 'svelte-fusioncharts';
 
   import { sampleNames } from '../utils/constants.js';
 

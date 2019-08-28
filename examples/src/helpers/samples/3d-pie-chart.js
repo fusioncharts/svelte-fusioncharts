@@ -3,15 +3,15 @@ const code =
   import FusionCharts from 'fusioncharts';
   import Charts from 'fusioncharts/fusioncharts.charts';
   import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
-  import SvelteFC, { fcRoot } from '../../../../index.mjs';
+  import SvelteFC, { fcRoot } from 'svelte-fusioncharts';
 
   fcRoot(FusionCharts, Charts, FusionTheme);
 
-  let dataSource = { /* see data tab */},
+  let dataSource = { /* see data tab */ },
     chartConfig = {
       type: 'pie3d',
-      width: '100%',
-      height: '100%',
+      width: '600',
+      height: '400',
       renderAt: 'chart-container',
       dataSource
     };
