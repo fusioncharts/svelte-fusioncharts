@@ -4,11 +4,7 @@
   import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
   import SvelteFC, { fcRoot } from '../../../../index.mjs';
 
-  import dataSourceStore from '../utils/chart-viewer-data.js';
-
   import { onDestroy } from 'svelte';
-
-  FusionCharts.options.creditLabel = false;
 
   fcRoot(FusionCharts, Charts, FusionTheme);
 

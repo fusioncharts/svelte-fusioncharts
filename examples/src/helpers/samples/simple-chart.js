@@ -10,16 +10,16 @@ const code =
   const dataSource = { /* see data tab */ };
 
   const chartConfigs = {
-		type: 'column2d',
-		width: 600,
-		height: 400,
-		dataFormat: 'json',
-		dataSource: dataSource
-	};
+    type: 'column2d',
+    width: 600,
+    height: 400,
+    dataFormat: 'json',
+    dataSource: dataSource
+  };
 </script>`,
 
 html =
-`<div id='container'>
+`<div id="container">
   <SvelteFC
     {...chartConfigs}
   />

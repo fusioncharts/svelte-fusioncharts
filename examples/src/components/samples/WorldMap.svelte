@@ -5,10 +5,6 @@
   import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
   import SvelteFC, { fcRoot } from '../../../../index.mjs';
 
-  import dataSourceStore from '../utils/chart-viewer-data.js';
-
-  FusionCharts.options.creditLabel = false;
-
   fcRoot(FusionCharts, Maps, World, FusionTheme);
 
   let dataSource = {

@@ -33,6 +33,8 @@
   import UseAnnotations from './samples/UseAnnotations.svelte';
   import WorldMap from './samples/WorldMap.svelte';
 
+  import FusionCharts from 'fusioncharts';
+
   import { sampleNames } from './utils/constants.js';
 
   import { beforeUpdate } from 'svelte';
@@ -40,6 +42,8 @@
   export let sampleId = 'simple-chart';
 
   let className = 'chart-container-500';
+
+  FusionCharts.options.creditLabel = false;
 
   beforeUpdate(() => {
     if (sampleId === sampleNames.EXPORTCHARTS) {
