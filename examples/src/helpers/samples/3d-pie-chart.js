@@ -3,26 +3,23 @@ const code =
   import FusionCharts from 'fusioncharts';
   import Charts from 'fusioncharts/fusioncharts.charts';
   import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
-  import SvelteFC, {fcRoot} from 'svelte-fusioncharts';
+  import SvelteFC, { fcRoot } from '../../../../index.mjs';
 
   fcRoot(FusionCharts, Charts, FusionTheme);
 
-  const dataSource = { /* see data tab */ };
-
-  const chartConfigs = {
-		type: 'pie3d',
-		width: 600,
-		height: 400,
-		dataFormat: 'json',
-		dataSource: dataSource
-	};
+  let dataSource = { /* see data tab */},
+    chartConfig = {
+      type: 'pie3d',
+      width: '100%',
+      height: '100%',
+      renderAt: 'chart-container',
+      dataSource
+    };
 </script>`,
 
 html =
-`<div id='container'>
-  <SvelteFC
-    {...chartConfigs}
-  />
+`<div id="chart-container" >
+  <SvelteFC {...chartConfig} />
 </div>`,
 
 data =

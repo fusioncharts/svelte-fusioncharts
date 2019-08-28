@@ -1,170 +1,135 @@
 import SimpleChart from './simple-chart';
+import SimpleTimeseries from './simple-timeseries';
+import ColumnTimeAxis from './column-time-axis';
+import AreaTimeAxis from './area-time-axis';
+import ColumnChartTimeAxis from './column-chart-time-axis';
+import MultiSeriesTimeAxis from './multi-series-chart-time-axis';
+import MultiVariateTimeAxis from './multivariate-time-axis';
+import AddingReferenceLine from './adding-reference-line';
+import AnnotatingData from './annotating-data';
+import SingleEventOverlay from './single-event-overlay';
+import DateEventOverlay from './date-event-overlay';
+import InteractiveCandleStick from './interactive-candlestick-chart';
 import Pie3dChart from './3d-pie-chart';
+import ColumnLineAreaCombi from './column-line-area-combi-chart';
+import FetchDataFromJSONUrl from './fetch-data-from-json-url';
+import FetchDataFromXMLUrl from './fetch-data-from-xml-url';
+import UpdateChartData from './update-chart-data';
+import UpdateChartAttribute from './update-chart-attribute';
+import TriggerEventsFromChart from './trigger-events-from-charts';
+import PercentageCalculation from './percentage-calculation';
+import ExportCharts from './export-charts';
+import DrillDown from './drill-down';
+import SimpleGauge from './simple-gauge';
+import WorldMap from './world-map';
+import SpecialEvents from './special-events';
+import RenderAlert from './render-alert';
+import DynamicallyAddChart from './dynamically-add-chart';
+import SliceDataPlots from './slice-data-plots';
+import ResponsiveCharts from './responsive-charts';
+import ChangeChartType from './change-chart-type';
+import UseAnnotations from './use-annotations';
+import UpdateChartAttributeThroughMethod from './update-chart-attribute-through-method';
+import ApplyTheme from './apply-theme';
 
 export default {
   'simple-chart': {
-    code: SimpleChart.code,
-    html: SimpleChart.html,
-    data: SimpleChart.data
+    ...SimpleChart
   },
   'simple-timeseries': {
-    code: '',
-    html: '',
-    data: ''
+    ...SimpleTimeseries
   },
   'column-time-axis': {
-    code: '',
-    html: '',
-    data: ''
+    ...ColumnTimeAxis
   },
   'area-time-axis': {
-    code: '',
-    html: '',
-    data: ''
+    ...AreaTimeAxis
   },
   'column-chart-time-axis': {
-    code: '',
-    html: '',
-    data: ''
+    ...ColumnChartTimeAxis
   },
   'multi-series-chart-time-axis': {
-    code: '',
-    html: '',
-    data: ''
+    ...MultiSeriesTimeAxis
   },
   'multivariate-time-axis': {
-    code: '',
-    html: '',
-    data: ''
+    ...MultiVariateTimeAxis
   },
   'adding-reference-line': {
-    code: '',
-    html: '',
-    data: ''
+    ...AddingReferenceLine
   },
   'annotating-data': {
-    code: '',
-    html: '',
-    data: ''
+    ...AnnotatingData
   },
   'single-event-overlay': {
-    code: '',
-    html: '',
-    data: ''
+    ...SingleEventOverlay
   },
   'date-event-overlay': {
-    code: '',
-    html: '',
-    data: ''
+    ...DateEventOverlay
   },
   'interactive-candlestick-chart': {
-    code: '',
-    html: '',
-    data: ''
+    ...InteractiveCandleStick
   },
   '3d-pie-chart': {
-    code: Pie3dChart.code,
-    html: Pie3dChart.html,
-    data: Pie3dChart.data
+    ...Pie3dChart
   },
   'column-line-area-combi-chart': {
-    code: '',
-    html: '',
-    data: ''
+    ...ColumnLineAreaCombi
   },
   'fetch-data-from-json-url': {
-    code: '',
-    html: '',
-    data: ''
+    ...FetchDataFromJSONUrl
   },
   'fetch-data-from-xml-url': {
-    code: '',
-    html: '',
-    data: ''
+    ...FetchDataFromXMLUrl
   },
   'update-chart-data': {
-    code: '',
-    html: '',
-    data: ''
+    ...UpdateChartData
   },
   'update-chart-attributes': {
-    code: '',
-    html: '',
-    data: ''
+    ...UpdateChartAttribute
   },
   'trigger-events-from-chart': {
-    code: '',
-    html: '',
-    data: ''
+    ...TriggerEventsFromChart
   },
   'percentage-calculation': {
-    code: '',
-    html: '',
-    data: ''
+    ...PercentageCalculation
   },
   'export-charts': {
-    code: '',
-    html: '',
-    data: ''
+    ...ExportCharts
   },
   'drill-down': {
-    code: '',
-    html: '',
-    data: ''
+    ...DrillDown
   },
   'simple-gauge': {
-    code: '',
-    html: '',
-    data: ''
+    ...SimpleGauge
   },
   'world-map': {
-    code: '',
-    html: '',
-    data: ''
+    ...WorldMap
   },
   'special-events': {
-    code: '',
-    html: '',
-    data: ''
+    ...SpecialEvents
   },
   'render-alert': {
-    code: '',
-    html: '',
-    data: ''
+    ...RenderAlert
   },
   'dynamically-add-chart': {
-    code: '',
-    html: '',
-    data: ''
+    ...DynamicallyAddChart
   },
   'slice-data-plots': {
-    code: '',
-    html: '',
-    data: ''
+    ...SliceDataPlots
   },
   'responsive-charts': {
-    code: '',
-    html: '',
-    data: ''
+    ...ResponsiveCharts
   },
   'change-chart-type': {
-    code: '',
-    html: '',
-    data: ''
+    ...ChangeChartType
   },
   'use-annotations': {
-    code: '',
-    html: '',
-    data: ''
+    ...UseAnnotations
   },
   'update-chart-attribute-through-method': {
-    code: '',
-    html: '',
-    data: ''
+    ...UpdateChartAttributeThroughMethod
   },
   'apply-theme': {
-    code: '',
-    html: '',
-    data: ''
+    ...ApplyTheme
   }
 };
