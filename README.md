@@ -2,15 +2,15 @@
 
 A simple and lightweight official Svelte component for FusionCharts JavaScript charting library. `svelte-fusioncharts` enables you to add JavaScript charts in your Svelte application or project without any hassle.
 
-## [Demo](https://fusioncharts.github.io/react-fusioncharts-component/)
+## [Demo](https://fusioncharts.github.io/svelte-fusioncharts/)
 
-- Github Repo: [https://github.com/fusioncharts/react-fusioncharts-component](https://github.com/fusioncharts/react-fusioncharts-component)
-- Documentation: [https://www.fusioncharts.com/dev/getting-started/react/your-first-chart-using-react](https://www.fusioncharts.com/dev/getting-started/react/your-first-chart-using-react)
+- Github Repo: [https://github.com/fusioncharts/svelte-fusioncharts](https://github.com/fusioncharts/svelte-fusioncharts-component)
+- Documentation: [https://www.fusioncharts.com/dev/getting-started/svelte/your-first-chart-using-svelte](https://www.fusioncharts.com/dev/getting-started/svelte/your-first-chart-using-svelte)
 - Support: [https://www.fusioncharts.com/contact-support](https://www.fusioncharts.com/contact-support)
 - FusionCharts
   - Official Website: [https://www.fusioncharts.com/](https://www.fusioncharts.com/)
   - Official NPM Package: [https://www.npmjs.com/package/fusioncharts](https://www.npmjs.com/package/fusioncharts)
-- Issues: [https://github.com/fusioncharts/react-fusioncharts-component/issues](https://github.com/fusioncharts/react-fusioncharts-component/issues)
+- Issues: [https://github.com/fusioncharts/svelte-fusioncharts-component/issues](https://github.com/fusioncharts/svelte-fusioncharts-component/issues)
 
 ---
 
@@ -41,9 +41,6 @@ A simple and lightweight official Svelte component for FusionCharts JavaScript c
 
 There are multiple ways to install `svelte-fusioncharts` component.
 
-**Direct Download**
-All binaries are located on our [github repository](https://github.com/fusioncharts/react-fusioncharts-component).
-
 **Install from NPM**
 
 ```
@@ -51,16 +48,6 @@ npm install --save svelte-fusioncharts
 ```
 
 See [npm documentation](https://docs.npmjs.com/) to know more about npm usage.
-
-**Install from Yarn**
-
-```
-yarn add svelte-fusioncharts
-```
-
-See [yarn documentation](https://yarnpkg.com/en/docs) to know more about yarn usage.
-
-For general instructions, refer to this [developer docs page](https://www.fusioncharts.com/dev/getting-started/react/your-first-chart-using-react#installation-2).
 
 ### Usage
 
@@ -239,6 +226,84 @@ To attach event callbacks to a FusionCharts component, follow the sample below.
 <SvelteFC {...chartConfigs} />
 ```
 
+## Working with APIs
+
+To call APIs we will need the chart object. To get the chart object for an SvelteFC component, bind a variable with the <code>chart</code> property of SvelteFC component.
+
+```javascript
+<script>
+  import FusionCharts from 'fusioncharts';
+  import Charts from 'fusioncharts/fusioncharts.charts';
+
+  import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
+  import SvelteFC, { fcRoot } from 'svelte-fusioncharts';
+
+  fcRoot(FusionCharts, Charts, FusionTheme);
+
+  let chartObj,
+    dataSource = {
+      "chart": {
+        "caption": "Market Share of Web Servers",
+        "plottooltext": "<b>$percentValue</b> of web servers run on $label servers",
+        "showLegend": "1",
+        "showPercentValues": "1",
+        "legendPosition": "bottom",
+        "useDataPlotColorForLabels": "1",
+        "enablemultislicing": "0",
+        "showlegend": "0",
+        "theme": "fusion",
+      },
+      "data": [{
+        "label": "Apache",
+        "value": "32647479"
+      }, {
+        "label": "Microsoft",
+        "value": "22100932"
+      }, {
+        "label": "Zeus",
+        "value": "14376"
+      }, {
+        "label": "Other",
+        "value": "18674221"
+      }]
+    },
+    chartConfig = {
+      type: 'pie2d',
+      width: '600',
+      height: '400',
+      renderAt: 'chart-container',
+      dataSource 
+    };
+
+  const sliceDataPlot = (index, sliceOut = true) => {
+    chartObj.slicePlotItem(index, sliceOut)
+  };
+</script>
+
+<div id="chart-container" >
+  <SvelteFC {...chartConfig} bind:chart={chartObj} />
+</div>
+
+<button on:click={() => {
+  sliceDataPlot(1);
+}}>
+  Slice out
+</button>
+<button on:click={() => {
+  sliceDataPlot(1, false);
+}} >
+  Slice in
+</button>
+```
+
+links to help you get started:
+
+- [Live samples with code](https://fusioncharts.github.io/svelte-fusioncharts/)
+- [Documentation](https://www.fusioncharts.com/dev/getting-started/svelte/your-first-chart-using-svelte)
+- [Use Chart API events & methods in Svelte](https://www.fusioncharts.com/dev/getting-started/svelte/configure-your-chart-using-svelte)
+- [Chart gallery](https://www.fusioncharts.com/explore/chart-gallery)
+- [FusionCharts API](https://www.fusioncharts.com/dev/api/fusioncharts)
+
 ## Usage and integration of FusionTime
 
 From `fusioncharts@3.13.3-sr.1`, You can visualize timeseries data.
@@ -248,80 +313,67 @@ Learn more about FusionTime [here](https://www.fusioncharts.com/fusiontime).
 ### Consider the example below for integration of FusionTime
 
 ```javascript
-import React from 'react';
-import FusionCharts from 'fusioncharts';
-import TimeSeries from 'fusioncharts/fusioncharts.timeseries';
-import ReactFC from 'react-fusioncharts';
+<script>
+  import FusionCharts from 'fusioncharts';
+  import Timeseries from 'fusioncharts/fusioncharts.timeseries';
+  import SvelteFC, { fcRoot } from 'svelte-fusioncharts';
 
-ReactFC.fcRoot(FusionCharts, TimeSeries);
+  fcRoot(FusionCharts, Timeseries);
 
-const jsonify = res => res.json();
-const dataFetch = fetch(
-  'https://raw.githubusercontent.com/fusioncharts/dev_centre_docs/fusiontime-beta-release/charts-resources/fusiontime/online-sales-single-series/data.json'
-).then(jsonify);
-const schemaFetch = fetch(
-  'https://raw.githubusercontent.com/fusioncharts/dev_centre_docs/fusiontime-beta-release/charts-resources/fusiontime/online-sales-single-series/schema.json'
-).then(jsonify);
-
-class ChartViewer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.onFetchData = this.onFetchData.bind(this);
-    this.state = {
-      timeseriesDs: {
-        type: 'timeseries',
-        renderAt: 'container',
-        width: '600',
-        height: '400',
-        dataSource: {
-          caption: { text: 'Online Sales of a SuperStore in the US' },
-          data: null,
-          yAxis: [
-            {
-              plot: [
-                {
-                  value: 'Sales ($)'
-                }
-              ]
-            }
-          ]
+  let jsonify = res => res.json(),
+    dataFetch = fetch(
+      'https://s3.eu-central-1.amazonaws.com/fusion.store/ft/data/line-chart-with-time-axis-data.json'
+    ).then(jsonify),
+    schemaFetch = fetch(
+      'https://s3.eu-central-1.amazonaws.com/fusion.store/ft/schema/line-chart-with-time-axis-schema.json'
+    ).then(jsonify),
+    dataSource = {
+      caption: {
+        text: 'Sales Analysis'
+      },
+      subcaption: {
+        text: 'Grocery'
+      },
+      yAxis: [
+        {
+          plot: {
+            value: 'Grocery Sales Value',
+            type: 'line'
+          },
+          format: {
+            prefix: '$'
+          },
+          title: 'Sale Value'
         }
+      ]
+    },
+    chartConfig = {
+      type: 'timeseries',
+      width: '600',
+      height: '400',
+      renderAt: 'chart-container',
+      dataSource 
+    };
+
+  Promise.all([dataFetch, schemaFetch]).then(res => {
+    const data = res[0],
+      schema = res[1],
+      fusionDataStore = new FusionCharts.DataStore(),
+      fusionTable = fusionDataStore.createDataTable(data, schema);
+
+    chartConfig = {
+      ...chartConfig,
+      dataSource: {
+        ...dataSource,
+        data: fusionTable
       }
     };
-  }
+  });
+</script>
 
-  componentDidMount() {
-    this.onFetchData();
-  }
-
-  onFetchData() {
-    Promise.all([dataFetch, schemaFetch]).then(res => {
-      const data = res[0];
-      const schema = res[1];
-      const fusionTable = new FusionCharts.DataStore().createDataTable(
-        data,
-        schema
-      );
-      const timeseriesDs = Object.assign({}, this.state.timeseriesDs);
-      timeseriesDs.dataSource.data = fusionTable;
-      this.setState({
-        timeseriesDs
-      });
-    });
-  }
-
-  render() {
-    return (
-      <div>
-        {this.state.timeseriesDs.dataSource.data ? (
-          <ReactFC {...this.state.timeseriesDs} />
-        ) : (
-          'loading'
-        )}
-      </div>
-    );
-  }
-}
+<div id="chart-container" >
+  <SvelteFC {...chartConfig} />
+</div>
 ```
 
 Useful links for FusionTime
@@ -329,84 +381,6 @@ Useful links for FusionTime
 - [How FusionTime works](https://www.fusioncharts.com/dev/fusiontime/getting-started/how-fusion-time-works)
 - [Create your first chart](https://www.fusioncharts.com/dev/fusiontime/getting-started/create-your-first-chart-in-fusiontime)
 
-
-## Working with APIs
-
-To call APIs we will need the chart object. To get the chart object for an React-FC component, pass a callback through the attribute `onRender`.
-
-Write the callback:
-
-As a separate function:
-
-```javascript
-var chartRenderCallback  = function (chart) {
-  [Code goes here]
-}
-```
-
-Or, as a component class method:
-
-```javascript
-chartRenderCallback (chart) {
-  [Code goes here]
-}
-```
-
-Pass the callback as a prop, to which the chart object will be returned on rendering
-
-```
-<ReactFC {...chartConfigs} onRender={chartRenderCallback} />
-```
-
-##### Consider the example below that conerts a Column 2D chart to a Pie 2D chart after 5 seconds.
-
-```javascript
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import FusionCharts from 'fusioncharts';
-import Charts from 'fusioncharts/fusioncharts.charts';
-import ReactFC from 'react-fusioncharts';
-import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
-
-ReactFC.fcRoot(FusionCharts, Charts, FusionTheme);
-
-const dataSource = /* Data source A given above */;
-
-const chartConfigs = {
-  type: 'column2d',
-  width: 600,
-  height: 400,
-  dataFormat: 'json',
-  dataSource: dataSource
-};
-
-class Chart extends Component {
-  // Convert the chart to a 2D Pie chart after 5 secs.
-  alterChart(chart) {
-    setTimeout(() => {
-      chart.chartType('pie2d');
-    }, 5000);
-  }
-
-  render() {
-    return (
-      <div>
-        <ReactFC {...chartConfigs} onRender={alterChart} />
-      </div>
-    );
-  }
-}
-
-ReactDOM.render(<Chart />, document.getElementById('root'));
-```
-
-links to help you get started:
-
-- [Live samples with code](https://fusioncharts.github.io/react-fusioncharts-component/)
-- [Documentation](https://www.fusioncharts.com/dev/getting-started/react/your-first-chart-using-react)
-- [Use Chart API events & methods in React](https://www.fusioncharts.com/dev/getting-started/react/configure-your-chart-using-react)
-- [Chart gallery](https://www.fusioncharts.com/explore/chart-gallery)
-- [FusionCharts API](https://www.fusioncharts.com/dev/api/fusioncharts)
 
 ## Going Beyond Charts
 
@@ -421,10 +395,10 @@ links to help you get started:
 $ git clone https://github.com/fusioncharts/svelte-fusioncharts.git
 $ cd svelte-fusioncharts
 $ npm i
-$ npm start
+$ npm run dev
 ```
 
-- Run `npm run build` to start the dev server and point your browser at [http://localhost:3000/](http://localhost:3000/).
+- Run `npm run build` to create a production build.
 
 ## Licensing
 
