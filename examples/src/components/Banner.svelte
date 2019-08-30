@@ -6,9 +6,9 @@
       <div class="row">
         <div class="col-md-8 offset-md-2">
           <div class="h1 text-white text-center">
-            <img id="lang-logo" class="img-valign" src="images/svelte.svg" width="40" height="40"
+            <img id="lang-logo" class="img-valign" src="examples/public/images/svelte.svg" width="40" height="40"
               alt="svelte" />
-            <img id="fc-logo" class="img-valign" src="images/fc-min-logo.svg" width="40" height="40"
+            <img id="fc-logo" class="img-valign" src="examples/public/images/fc-min-logo.svg" width="40" height="40"
               alt="FusionCharts" />
             <span class="title pl-1">Svelte-FusionCharts</span>
           </div>
