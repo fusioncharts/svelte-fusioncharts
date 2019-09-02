@@ -50,22 +50,27 @@
       renderAt: 'chart-container',
       width: '100%',
       height: '100%',
-      dataSource,
-      events: {
-        dataplotrollover: function (event, args) {
-          let value = (args.value / total * 100).toFixed(2);
-          para.innerHTML = '<b>' + args.categoryLabel + '</b> is <b>' + value +
-          '%</b> of top 8 oil reserve countries';
-        },
-        dataplotrollout: function (event, args) {
-          para.innerHTML = 'Hover on the plot to see the value along with the label';
-        }
-      }
+      dataSource
+    };
+
+  const rollOverHandler = customEvent => {
+      let args = customEvent.detail.data,
+        value = (args.value / total * 100).toFixed(2);
+
+      para.innerHTML = '<b>' + args.categoryLabel + '</b> is <b>' + value +
+        '%</b> of top 8 oil reserve countries';
+    },
+    rollOutHandler = () => {
+      para.innerHTML = 'Hover on the plot to see the value along with the label';
     };
 </script>
 
 <div id='chart-container' style='height: 90%;' >
-  <SvelteFC {...chartConfig} />
+  <SvelteFC
+    {...chartConfig}
+    on:dataplotRollOver={rollOverHandler}
+    on:dataplotRollOut={rollOutHandler}
+  />
 </div>
 <div>
   <p bind:this={para} id='message' style='padding: 10px; background: rgb(245, 242, 240);' >

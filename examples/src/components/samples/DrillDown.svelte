@@ -6,7 +6,8 @@
 
   fcRoot(FusionCharts, Charts, FusionTheme);
 
-  let dataSource = {
+  let chartObj,
+    dataSource = {
       "chart": {
         "caption": "Sales of top 3 juice flavors last year",
         "subcaption": "Click on a column to see details",
@@ -134,25 +135,28 @@
       renderAt: 'chart-container',
       width: '100%',
       height: '100%',
-      dataSource,
-      events: {
-        beforeRender: function (event) {
-          // Configure Drilldown attributes 
-          // See this : https://www.fusioncharts.com/dev/api/fusioncharts/fusioncharts-methods#configureLink
-          event.sender.configureLink({
-            type: "pie2d",
-            overlayButton: {
-              message: 'Back',
-              fontColor: '880000',
-              bgColor: 'FFEEEE',
-              borderColor: '660000'
-            }
-          }, 0);
-        }
-      }
+      dataSource
     };
+
+  const drillDownHandler = () => {
+    // Configure Drilldown attributes 
+    // See this : https://www.fusioncharts.com/dev/api/fusioncharts/fusioncharts-methods#configureLink
+    chartObj.configureLink({
+      type: "pie2d",
+      overlayButton: {
+        message: 'Back',
+        fontColor: '880000',
+        bgColor: 'FFEEEE',
+        borderColor: '660000'
+      }
+    }, 0);
+  };
 </script>
 
 <div id='chart-container' style='height: inherit;' >
-  <SvelteFC {...chartConfig} />
+  <SvelteFC
+    {...chartConfig}
+    bind:chart={chartObj}
+    on:beforeRender={drillDownHandler}
+  />
 </div>

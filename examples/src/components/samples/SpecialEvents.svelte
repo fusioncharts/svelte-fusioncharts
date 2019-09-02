@@ -9,6 +9,7 @@
   fcRoot(FusionCharts, PowerCharts, FusionTheme);
 
   let para,
+    chartObj,
     dataSource = {
       "chart": {
         "caption": "Android and iOS Devices Sales Projections",
@@ -87,24 +88,23 @@
       dataSource
     };
 
-  const dragEndHandler = (event, args) => {
-      let prevValue = FusionCharts.formatNumber(args.startValue.toFixed(2)),
-        curValue = FusionCharts.formatNumber(args.endValue.toFixed(2)),
-        label = dataSource.categories[0].category[args.dataIndex].label;
+  const dragEndHandler = customEvent => {
+    let args = customEvent.detail.data,
+      prevValue = chartObj.formatNumber(args.startValue.toFixed(2)),
+      curValue = chartObj.formatNumber(args.endValue.toFixed(2)),
+      label = dataSource.categories[0].category[args.dataIndex].label;
 
-      para.innerHTML = '<b>' + args.datasetName + '</b> dataset, its previous value was <b>'+ prevValue +'</b> and its current value is <b>' + curValue + '</b> for year ' +
-        '<b>'+ label + '</b>';
-    };
-
-  FusionCharts.addEventListener('dataplotdragend', dragEndHandler);
-
-  onDestroy(() => {
-    FusionCharts.removeEventListener('dataplotdragend', dragEndHandler);
-  });
+    para.innerHTML = '<b>' + args.datasetName + '</b> dataset, its previous value was <b>'+ prevValue +'</b> and its current value is <b>' + curValue + '</b> for year ' +
+      '<b>'+ label + '</b>';
+  };
 </script>
 
 <div id='chart-container' style='height: 90%;' >
-  <SvelteFC {...chartConfig} />
+  <SvelteFC
+    bind:chart={chartObj}
+    {...chartConfig}
+    on:dataplotDragEnd={dragEndHandler}
+  />
 </div>
 <div>
   <p bind:this={para} id='message' style='padding: 10px; background: rgb(245, 242, 240);' >
