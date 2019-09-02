@@ -487,7 +487,8 @@ function instance($$self, $$props, $$invalidate) {
     let { id, className = '', type = 'column2d', renderAt = '__svelte_fc_chart_container', width = '600', height = '350', dataFormat = 'json', dataSource = {}, chart } = $$props;
 
     let oldChartConfig,
-        chartConfig;
+        chartConfig,
+        eventListerners = [];
 
     const dispatch = createEventDispatcher();
     /**
@@ -515,10 +516,11 @@ function instance($$self, $$props, $$invalidate) {
                 chart.render();
             });
 
-            Events.forEach(event => {
-                FusionCharts.addEventListener(event, e => {
+            Events.forEach((event, index) => {
+                eventListerners.push(e => {
                     dispatch(event, e);
                 });
+                FusionCharts.addEventListener(event, eventListerners[index]);
             });
         }
     });
@@ -539,6 +541,9 @@ function instance($$self, $$props, $$invalidate) {
     });
     onDestroy(() => {
         chart.dispose();
+        Events.forEach((event, index) => {
+            FusionCharts.removeEventListener(event, eventListerners[index]);
+        });
     });
 
 	$$self.$set = $$props => {
