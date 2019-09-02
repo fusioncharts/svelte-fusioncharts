@@ -14,7 +14,8 @@
 </script>
 
 <script>
-    import { onMount, onDestroy, beforeUpdate, afterUpdate } from 'svelte';
+    import { onMount, onDestroy, beforeUpdate, afterUpdate, createEventDispatcher } from 'svelte';
+    import Events from './events.js';
     import {
         isResizeRequired,
         isChartTypeChanged,
@@ -31,13 +32,13 @@
         height = '350',
         dataFormat = 'json',
         dataSource = {},
-        events = {},
         chart;
 
     let key,
         oldChartConfig,
         chartConfig;
 
+    const dispatch = createEventDispatcher();
     /**
      * Life cycle method sequence
      * beforeUpdate -> onMount -> afterUpdate (during intial render)
@@ -51,8 +52,7 @@
             width,
             height,
             dataFormat,
-            dataSource: cloneObject(dataSource),
-            events
+            dataSource: cloneObject(dataSource)
         };
     });
     onMount(() => {
@@ -62,6 +62,12 @@
             FusionCharts.ready(function () {
                 chart = new FusionCharts(chartConfig);
                 chart.render();
+            });
+
+            Events.forEach(event => {
+                FusionCharts.addEventListener(event, e => {
+                    dispatch(event, e);
+                });
             });
         }
     });
@@ -76,27 +82,6 @@
                 chart.chartType(chartConfig.type, chartConfig);
             } else if (isDataSourceUpdated(oldChartConfig, chartConfig)) {
                 chart.setJSONData(chartConfig.dataSource);
-            }
-
-
-            if (chartConfig.events || oldChartConfig.events) {
-                let oldEvts = oldChartConfig.events,
-                newEvts = chartConfig.events;
-
-                // For all old events which got removed, remove them
-                for (let evt in oldEvts) {
-                    if (!newEvts || !newEvts[evt] || newEvts[evt] !== oldEvts[evt]) {
-                        chart.removeEventListener(evt, oldEvts[evt]);
-                    }
-                }
-                // add new evet listeners
-                for (let evt in newEvts) {
-                    if (!oldEvts || !oldEvts[evt] || newEvts[evt] !== oldEvts[evt]) {
-                        chart.addEventListener(evt, newEvts[evt]);
-                    }
-                }
-                
-                
             }
         }
         oldChartConfig = cloneObject(chartConfig);
