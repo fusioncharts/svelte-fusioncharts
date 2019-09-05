@@ -14,36 +14,42 @@
 </script>
 
 <script>
-    import { onMount, onDestroy, beforeUpdate, afterUpdate } from 'svelte';
+    import { onMount, onDestroy, beforeUpdate, afterUpdate, createEventDispatcher } from 'svelte';
+    import Events from './events.js';
     import {
         isResizeRequired,
         isChartTypeChanged,
         isDataSourceUpdated,
-        cloneObject
+        cloneObject,
+        createUniqueId
     } from './utils.js';
 
     // props
     export let id,
         className = '',
-        type = 'column2d',
-        renderAt = '__svelte_fc_chart_container',
-        width = '600',
-        height = '350',
+        inlineStyle = '',
+        type,
+        renderAt,
+        width,
+        height,
         dataFormat = 'json',
-        dataSource = {},
-        events = {},
+        dataSource,
         chart;
 
     let key,
         oldChartConfig,
-        chartConfig;
+        chartConfig,
+        eventListerners = [];
 
+    const dispatch = createEventDispatcher(),
+        uniqueDivId = createUniqueId();
     /**
      * Life cycle method sequence
      * beforeUpdate -> onMount -> afterUpdate (during intial render)
      * beforeUpdate -> afterUpdate (during re-render)
      */
     beforeUpdate(() => {
+        renderAt = uniqueDivId;
         chartConfig = {
             id,
             type,
@@ -51,8 +57,7 @@
             width,
             height,
             dataFormat,
-            dataSource: cloneObject(dataSource),
-            events
+            dataSource: cloneObject(dataSource)
         };
     });
     onMount(() => {
@@ -62,6 +67,13 @@
             FusionCharts.ready(function () {
                 chart = new FusionCharts(chartConfig);
                 chart.render();
+            });
+
+            Events.forEach((event, index) => {
+                eventListerners.push(e => {
+                    dispatch(event, e);
+                });
+                FusionCharts.addEventListener(event, eventListerners[index]);
             });
         }
     });
@@ -77,33 +89,15 @@
             } else if (isDataSourceUpdated(oldChartConfig, chartConfig)) {
                 chart.setJSONData(chartConfig.dataSource);
             }
-
-
-            if (chartConfig.events || oldChartConfig.events) {
-                let oldEvts = oldChartConfig.events,
-                newEvts = chartConfig.events;
-
-                // For all old events which got removed, remove them
-                for (let evt in oldEvts) {
-                    if (!newEvts || !newEvts[evt] || newEvts[evt] !== oldEvts[evt]) {
-                        chart.removeEventListener(evt, oldEvts[evt]);
-                    }
-                }
-                // add new evet listeners
-                for (let evt in newEvts) {
-                    if (!oldEvts || !oldEvts[evt] || newEvts[evt] !== oldEvts[evt]) {
-                        chart.addEventListener(evt, newEvts[evt]);
-                    }
-                }
-                
-                
-            }
         }
         oldChartConfig = cloneObject(chartConfig);
     });
     onDestroy(() => {
         chart.dispose();
+        Events.forEach((event, index) => {
+            FusionCharts.removeEventListener(event, eventListerners[index]);
+        });
     })
 </script>
 
-<div class={className} id={renderAt}></div>
+<div class={className} style={inlineStyle} id={uniqueDivId}></div>

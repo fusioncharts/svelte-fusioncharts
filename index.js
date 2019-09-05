@@ -38,6 +38,11 @@
     function children(element) {
         return Array.from(element.childNodes);
     }
+    function custom_event(type, detail) {
+        const e = document.createEvent('CustomEvent');
+        e.initCustomEvent(type, false, false, detail);
+        return e;
+    }
 
     let current_component;
     function set_current_component(component) {
@@ -59,6 +64,20 @@
     }
     function onDestroy(fn) {
         get_current_component().$$.on_destroy.push(fn);
+    }
+    function createEventDispatcher() {
+        const component = current_component;
+        return (type, detail) => {
+            const callbacks = component.$$.callbacks[type];
+            if (callbacks) {
+                // TODO are there situations where events could be dispatched
+                // in a server (non-DOM) environment?
+                const event = custom_event(type, detail);
+                callbacks.slice().forEach(fn => {
+                    fn.call(component, event);
+                });
+            }
+        };
     }
 
     const dirty_components = [];
@@ -230,7 +249,143 @@
         }
     }
 
+    var Events = [
+      "beforeLinkedItemOpen",
+      "linkedItemOpened",
+      "beforeLinkedItemClose",
+      "linkedItemClosed",
+      "printReadyStateChange",
+      "dataLoadRequestCompleted",
+      "dataLoadError",
+      "dataLoadCancelled",
+      "dataLoadRequestCancelled",
+      "dataUpdated",
+      "dataUpdateCancelled",
+      "dataLoadRequested",
+      "beforeDataUpdate",
+      "realTimeUpdateComplete",
+      "chartCleared",
+      "slicingEnd",
+      "slicingStart",
+      "entityRollOut",
+      "entityRollOver",
+      "entityClick",
+      "connectorRollOver",
+      "connectorRollOut",
+      "connectorClick",
+      "markerRollOver",
+      "markerRollOut",
+      "markerClick",
+      "pageNavigated",
+      "rotationEnd",
+      "rotationStart",
+      "centerLabelRollover",
+      "centerLabelRollout",
+      "centerLabelClick",
+      "centerLabelChanged",
+      "chartClick",
+      "chartMouseMove",
+      "chartRollOver",
+      "chartRollOut",
+      "backgroundLoaded",
+      "backgroundLoadError",
+      "legendItemClicked",
+      "legendItemRollover",
+      "legendItemRollout",
+      "logoRollover",
+      "logoRollout",
+      "logoClick",
+      "logoLoaded",
+      "logoLoadError",
+      "beforeExport",
+      "exported",
+      "exportCancelled",
+      "beforePrint",
+      "printComplete",
+      "printCancelled",
+      "dataLabelClick",
+      "dataLabelRollOver",
+      "dataLabelRollOut",
+      "scrollStart",
+      "scrollEnd",
+      "onScroll",
+      "zoomReset",
+      "zoomedOut",
+      "zoomedIn",
+      "zoomed",
+      "zoomModeChanged",
+      "pinned",
+      "dataRestored",
+      "beforeDataSubmit",
+      "dataSubmitError",
+      "dataSubmitted",
+      "dataSubmitCancelled",
+      "chartUpdated",
+      "nodeAdded",
+      "nodeUpdated",
+      "nodeDeleted",
+      "connectorAdded",
+      "connectorUpdated",
+      "connectorDeleted",
+      "labelAdded",
+      "labelDeleted",
+      "selectionRemoved",
+      "selectionStart",
+      "selectionEnd",
+      "labelClick",
+      "labelRollOver",
+      "labelRollOut",
+      "labelDragStart",
+      "labelDragEnd",
+      "dataplotDragStart",
+      "dataplotDragEnd",
+      "processClick",
+      "processRollOver",
+      "processRollOut",
+      "categoryClick",
+      "categoryRollOver",
+      "categoryRollOut",
+      "milestoneClick",
+      "milestoneRollOver",
+      "milestoneRollOut",
+      "chartTypeChanged",
+      "overlayButtonClick",
+      "loaded",
+      "rendered",
+      "drawComplete",
+      "renderComplete",
+      "dataInvalid",
+      "dataXMLInvalid",
+      "dataLoaded",
+      "noDataToDisplay",
+      "legendPointerDragStart",
+      "legendPointerDragStop",
+      "legendRangeUpdated",
+      "alertComplete",
+      "realTimeUpdateError",
+      "dataplotRollOver",
+      "dataplotRollOut",
+      "dataplotClick",
+      "linkClicked",
+      "beforeRender",
+      "renderCancelled",
+      "beforeResize",
+      "resized",
+      "resizeCancelled",
+      "beforeDispose",
+      "disposed",
+      "disposeCancelled",
+      "linkedChartInvoked",
+      "beforeDrillDown",
+      "drillDown",
+      "beforeDrillUp",
+      "drillUp",
+      "drillDownCancelled",
+      "drillUpCancelled"
+    ];
+
     const ATOMIC_DATA_TYPE = ['string', 'number', 'function', 'boolean', 'undefined'],
+        charSet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
         isResizeRequired = (oldConfig, newConfig) => {
             let { width, height } = oldConfig,
                 newWidth = newConfig.width,
@@ -280,7 +435,17 @@
         },
         isDataSourceUpdated = (oldConfig, newConfig) => {
             return JSON.stringify(cloneObject(oldConfig.dataSource, 'diff')) !== JSON.stringify(cloneObject(newConfig.dataSource, 'diff'));
-        };
+        },
+        createUniqueId = (length = 20) => {
+            let i,
+                result = '',
+                charactersLength = charSet.length;
+
+            for (i = 0; i < length; i++) {
+               result += charSet.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            return result;
+         };
 
     /* src/index.svelte generated by Svelte v3.8.1 */
 
@@ -291,7 +456,8 @@
     		c() {
     			div = element("div");
     			attr(div, "class", ctx.className);
-    			attr(div, "id", ctx.renderAt);
+    			attr(div, "style", ctx.inlineStyle);
+    			attr(div, "id", ctx.uniqueDivId);
     		},
 
     		m(target, anchor) {
@@ -303,8 +469,8 @@
     				attr(div, "class", ctx.className);
     			}
 
-    			if (changed.renderAt) {
-    				attr(div, "id", ctx.renderAt);
+    			if (changed.inlineStyle) {
+    				attr(div, "style", ctx.inlineStyle);
     			}
     		},
 
@@ -336,17 +502,21 @@
     	
 
         // props
-        let { id, className = '', type = 'column2d', renderAt = '__svelte_fc_chart_container', width = '600', height = '350', dataFormat = 'json', dataSource = {}, events = {}, chart } = $$props;
+        let { id, className = '', inlineStyle = '', type, renderAt, width, height, dataFormat = 'json', dataSource, chart } = $$props;
 
         let oldChartConfig,
-            chartConfig;
+            chartConfig,
+            eventListerners = [];
 
+        const dispatch = createEventDispatcher(),
+            uniqueDivId = createUniqueId();
         /**
          * Life cycle method sequence
          * beforeUpdate -> onMount -> afterUpdate (during intial render)
          * beforeUpdate -> afterUpdate (during re-render)
          */
         beforeUpdate(() => {
+            $$invalidate('renderAt', renderAt = uniqueDivId);
             chartConfig = {
                 id,
                 type,
@@ -354,8 +524,7 @@
                 width,
                 height,
                 dataFormat,
-                dataSource: cloneObject(dataSource),
-                events
+                dataSource: cloneObject(dataSource)
             };
         });
         onMount(() => {
@@ -365,6 +534,13 @@
                 FusionCharts.ready(function () {
                     $$invalidate('chart', chart = new FusionCharts(chartConfig));
                     chart.render();
+                });
+
+                Events.forEach((event, index) => {
+                    eventListerners.push(e => {
+                        dispatch(event, e);
+                    });
+                    FusionCharts.addEventListener(event, eventListerners[index]);
                 });
             }
         });
@@ -380,65 +556,48 @@
                 } else if (isDataSourceUpdated(oldChartConfig, chartConfig)) {
                     chart.setJSONData(chartConfig.dataSource);
                 }
-
-
-                if (chartConfig.events || oldChartConfig.events) {
-                    let oldEvts = oldChartConfig.events,
-                    newEvts = chartConfig.events;
-
-                    // For all old events which got removed, remove them
-                    for (let evt in oldEvts) {
-                        if (!newEvts || !newEvts[evt] || newEvts[evt] !== oldEvts[evt]) {
-                            chart.removeEventListener(evt, oldEvts[evt]);
-                        }
-                    }
-                    // add new evet listeners
-                    for (let evt in newEvts) {
-                        if (!oldEvts || !oldEvts[evt] || newEvts[evt] !== oldEvts[evt]) {
-                            chart.addEventListener(evt, newEvts[evt]);
-                        }
-                    }
-                    
-                    
-                }
             }
             oldChartConfig = cloneObject(chartConfig);
         });
         onDestroy(() => {
             chart.dispose();
+            Events.forEach((event, index) => {
+                FusionCharts.removeEventListener(event, eventListerners[index]);
+            });
         });
 
     	$$self.$set = $$props => {
     		if ('id' in $$props) $$invalidate('id', id = $$props.id);
     		if ('className' in $$props) $$invalidate('className', className = $$props.className);
+    		if ('inlineStyle' in $$props) $$invalidate('inlineStyle', inlineStyle = $$props.inlineStyle);
     		if ('type' in $$props) $$invalidate('type', type = $$props.type);
     		if ('renderAt' in $$props) $$invalidate('renderAt', renderAt = $$props.renderAt);
     		if ('width' in $$props) $$invalidate('width', width = $$props.width);
     		if ('height' in $$props) $$invalidate('height', height = $$props.height);
     		if ('dataFormat' in $$props) $$invalidate('dataFormat', dataFormat = $$props.dataFormat);
     		if ('dataSource' in $$props) $$invalidate('dataSource', dataSource = $$props.dataSource);
-    		if ('events' in $$props) $$invalidate('events', events = $$props.events);
     		if ('chart' in $$props) $$invalidate('chart', chart = $$props.chart);
     	};
 
     	return {
     		id,
     		className,
+    		inlineStyle,
     		type,
     		renderAt,
     		width,
     		height,
     		dataFormat,
     		dataSource,
-    		events,
-    		chart
+    		chart,
+    		uniqueDivId
     	};
     }
 
     class Index extends SvelteComponent {
     	constructor(options) {
     		super();
-    		init(this, options, instance, create_fragment, safe_not_equal, ["id", "className", "type", "renderAt", "width", "height", "dataFormat", "dataSource", "events", "chart"]);
+    		init(this, options, instance, create_fragment, safe_not_equal, ["id", "className", "inlineStyle", "type", "renderAt", "width", "height", "dataFormat", "dataSource", "chart"]);
     	}
     }
 

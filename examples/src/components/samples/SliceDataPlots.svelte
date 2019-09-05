@@ -11,7 +11,7 @@
     chartConfig = {
       type: 'pie2d',
       width: '100%',
-      height: '90%',
+      height: 400,
       renderAt: 'chart-container',
       dataSource: {
         "chart": {

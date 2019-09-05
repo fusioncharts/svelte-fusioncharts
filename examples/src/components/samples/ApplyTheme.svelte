@@ -20,7 +20,7 @@
       id: 'column-chart',
       type: 'column2d',
       width: '100%',
-      height: '100%',
+      height: 400,
       renderAt: 'chart-container',
       dataSource: {
         "chart": {
@@ -143,7 +143,7 @@
 <div id='chart-container' style='height: 90%;' >
   <SvelteFC {...chartConfig} bind:chart={chartObj} />
 </div>
-<div style="display: flex; position: absolute; bottom: 15px;">
+<div style="display: flex; position: absolute; bottom: 15px; justify-content: center; width:100%">
   <div id="select-text">Choose a theme:</div>
   <div class="change-type">
     <div id="radio1">

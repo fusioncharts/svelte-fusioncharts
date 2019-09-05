@@ -10,7 +10,7 @@
   let chartConfig = {
     type: 'spline',
     width: '100%',
-    height: '100%',
+    height: 450,
     renderAt: 'chart-container',
     dataSource: {
       "chart": {

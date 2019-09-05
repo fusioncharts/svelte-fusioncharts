@@ -1,4 +1,5 @@
 const ATOMIC_DATA_TYPE = ['string', 'number', 'function', 'boolean', 'undefined'],
+    charSet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
     isResizeRequired = (oldConfig, newConfig) => {
         let { width, height } = oldConfig,
             newWidth = newConfig.width,
@@ -48,11 +49,22 @@ const ATOMIC_DATA_TYPE = ['string', 'number', 'function', 'boolean', 'undefined'
     },
     isDataSourceUpdated = (oldConfig, newConfig) => {
         return JSON.stringify(cloneObject(oldConfig.dataSource, 'diff')) !== JSON.stringify(cloneObject(newConfig.dataSource, 'diff'));
-    };
+    },
+    createUniqueId = (length = 20) => {
+        let i,
+            result = '',
+            charactersLength = charSet.length;
+
+        for (i = 0; i < length; i++) {
+           result += charSet.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+     };
 
 export {
     isResizeRequired,
     isChartTypeChanged,
     isDataSourceUpdated,
-    cloneObject
+    cloneObject,
+    createUniqueId
 };

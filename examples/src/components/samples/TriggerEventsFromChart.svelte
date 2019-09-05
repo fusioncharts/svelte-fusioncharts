@@ -46,22 +46,26 @@
       type: 'column2d',
       renderAt: 'chart-container',
       width: '100%',
-      height: '100%',
-      dataSource,
-      events: {
-        dataplotrollover: function (event, args) {
-          para.innerHTML = 'You are currently hovering over <b>' + args.categoryLabel +
+      height: 400,
+      dataSource
+    };
+
+  const rollOverHandler = customEvent => {
+      let args = customEvent.detail.data;
+      para.innerHTML = 'You are currently hovering over <b>' + args.categoryLabel +
             '</b> whose value is <b>' + args.displayValue + '</b>';
-        },
-        dataplotrollout: function (event, args) {
-          para.innerHTML = 'Hover on the plot to see the value along with the label';
-        }
-      }
+    },
+    rollOutHandler = () => {
+      para.innerHTML = 'Hover on the plot to see the value along with the label';
     };
 </script>
 
 <div id='chart-container' style='height: 90%;' >
-  <SvelteFC {...chartConfig} />
+  <SvelteFC
+    {...chartConfig}
+    on:dataplotRollOver={rollOverHandler}
+    on:dataplotRollOut={rollOutHandler}
+  />
 </div>
 <div>
   <p bind:this={para} id='message' style='padding: 10px; background: rgb(245, 242, 240);' >

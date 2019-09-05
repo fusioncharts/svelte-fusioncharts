@@ -19,6 +19,7 @@
     dataBtn,
     schemaBtn,
     modal,
+    modalSelector,
     sampleId = 'simple-chart',
     curItem = listItemInfo[0];
 
@@ -29,6 +30,7 @@
         if (item.dataId === id) {
           curItem = item;
           item.selected = true;
+          modalSelector.innerHTML = item.title;
         }
         return item;
       });
@@ -110,7 +112,7 @@
     <div class="row">
       <div class="col-12 d-flex justify-content-center d-md-none">
         <div id="mobileChart-selector" class="base-dropdown chart-selector" on:click={() => { toggleModal('show'); }}>
-          <div class="selector">A Simple Chart</div>
+          <div class="selector" bind:this={modalSelector} >A Simple Chart</div>
           <div class="placeholder">Quick Demo:</div>
           <div class="caret">
             <i class="fc_dropdown"></i>
