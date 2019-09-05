@@ -20,7 +20,7 @@
       id: 'column-chart',
       type: 'column2d',
       width: '100%',
-      height: '100%',
+      height: 400,
       renderAt: 'chart-container',
       dataSource: {
         "chart": {
