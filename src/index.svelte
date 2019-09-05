@@ -20,18 +20,20 @@
         isResizeRequired,
         isChartTypeChanged,
         isDataSourceUpdated,
-        cloneObject
+        cloneObject,
+        createUniqueId
     } from './utils.js';
 
     // props
     export let id,
         className = '',
-        type = 'column2d',
-        renderAt = '__svelte_fc_chart_container',
-        width = '600',
-        height = '350',
+        inlineStyle = '',
+        type,
+        renderAt,
+        width,
+        height,
         dataFormat = 'json',
-        dataSource = {},
+        dataSource,
         chart;
 
     let key,
@@ -39,13 +41,15 @@
         chartConfig,
         eventListerners = [];
 
-    const dispatch = createEventDispatcher();
+    const dispatch = createEventDispatcher(),
+        uniqueDivId = createUniqueId();
     /**
      * Life cycle method sequence
      * beforeUpdate -> onMount -> afterUpdate (during intial render)
      * beforeUpdate -> afterUpdate (during re-render)
      */
     beforeUpdate(() => {
+        renderAt = uniqueDivId;
         chartConfig = {
             id,
             type,
@@ -96,4 +100,4 @@
     })
 </script>
 
-<div class={className} id={renderAt}></div>
+<div class={className} style={inlineStyle} id={uniqueDivId}></div>
