@@ -5,55 +5,57 @@
 
   fcRoot(FusionCharts, Timeseries);
 
-  let jsonify = res => res.json(),
+  let promise,
+    jsonify = res => res.json(),
     dataFetch = fetch(
       'https://s3.eu-central-1.amazonaws.com/fusion.store/ft/data/plotting-multiple-series-on-time-axis-data.json'
     ).then(jsonify),
     schemaFetch = fetch(
       'https://s3.eu-central-1.amazonaws.com/fusion.store/ft/schema/plotting-multiple-series-on-time-axis-schema.json'
-    ).then(jsonify),
-    dataSource = {
-      caption: {
-        text: 'Sales Analysis'
-      },
-      subcaption: {
-        text: 'Grocery & Footwear'
-      },
-      series: 'Type',
-      yAxis: [
-        {
-          plot: 'Sales Value',
-          title: 'Sale Value',
-          format: {
-            prefix: '$'
-          }
-        }
-      ]
-    },
-    chartConfig = {
+    ).then(jsonify);
+
+  promise = Promise.all([dataFetch, schemaFetch]);
+  
+  const getChartConfig = ([data, schema]) => {
+    const fusionDataStore = new FusionCharts.DataStore(),
+      fusionTable = fusionDataStore.createDataTable(data, schema);
+
+    return {
       type: 'timeseries',
       width: '100%',
       height: 450,
       renderAt: 'chart-container',
-      dataSource 
-    };
-
-  Promise.all([dataFetch, schemaFetch]).then(res => {
-    const data = res[0],
-      schema = res[1],
-      fusionDataStore = new FusionCharts.DataStore(),
-      fusionTable = fusionDataStore.createDataTable(data, schema);
-
-    chartConfig = {
-      ...chartConfig,
       dataSource: {
-        ...dataSource,
-        data: fusionTable
+        data: fusionTable,
+        caption: {
+          text: 'Sales Analysis'
+        },
+        subcaption: {
+          text: 'Grocery & Footwear'
+        },
+        series: 'Type',
+        yAxis: [
+          {
+            plot: 'Sales Value',
+            title: 'Sale Value',
+            format: {
+              prefix: '$'
+            }
+          }
+        ]
       }
     };
-  });
+  };
 </script>
 
 <div id='chart-container' style='height: inherit;' >
-  <SvelteFC {...chartConfig} />
+  {#await promise}
+    <p>Fetching data and schema...</p>
+  {:then value}
+    <SvelteFC
+      {...getChartConfig(value)}
+    />
+  {:catch error}
+    <p>Something went wrong: {error.message}</p>
+  {/await}
 </div>
