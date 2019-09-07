@@ -4,7 +4,7 @@ A simple and lightweight official Svelte component for FusionCharts JavaScript c
 
 ## [Demo](https://fusioncharts.github.io/svelte-fusioncharts/)
 
-- Github Repo: [https://github.com/fusioncharts/svelte-fusioncharts](https://github.com/fusioncharts/svelte-fusioncharts-component)
+- Github Repo: [https://github.com/fusioncharts/svelte-fusioncharts](https://github.com/fusioncharts/svelte-fusioncharts)
 - Documentation: [https://www.fusioncharts.com/dev/getting-started/svelte/your-first-chart-using-svelte](https://www.fusioncharts.com/dev/getting-started/svelte/your-first-chart-using-svelte)
 - Support: [https://www.fusioncharts.com/contact-support](https://www.fusioncharts.com/contact-support)
 - FusionCharts
@@ -23,8 +23,6 @@ A simple and lightweight official Svelte component for FusionCharts JavaScript c
   - [Working with chart API](#working-with-apis)
   - [Working with events](#working-with-events)
 - [Quick Start](#quick-start)
-- [Custom Components](#custom-components)
-  - [Drill Down](#drill-down-component)
 - [Going Beyond Charts](#going-beyond-charts)
 - [Usage and Integration of FusionTime](#usage-and-integration-of-fusionTime)
 - [For Contributors](#for-contributors)
@@ -204,13 +202,11 @@ To attach event callbacks to a FusionCharts component, follow the sample below.
         { label: 'China', value: '30' }
       ]
     },
-    events = {
-      dataplotClick: function (e) {
-        // code for dataplotClick event handler
-      },
-      renderComplete: function (e) {
-        // code for renderComplete event handler
-      }
+    dataplotClickHandler = event => {
+      // code for dataplotClick event handler
+    },
+    renderCompleteHandler = event => {
+      // code for renderComplete event handler
     };
 
   const chartConfigs = {
@@ -218,12 +214,15 @@ To attach event callbacks to a FusionCharts component, follow the sample below.
     width: 600,
     height: 400,
     dataFormat: 'json',
-    dataSource: dataSource,
-    events: events
+    dataSource: dataSource
   };
 </script>
 
-<SvelteFC {...chartConfigs} />
+<SvelteFC
+  {...chartConfigs}
+  on:dataplotClick={dataplotClickHandler}
+  on:renderComplete={renderCompleteHandler}
+/>
 ```
 
 ## Working with APIs
@@ -320,59 +319,61 @@ Learn more about FusionTime [here](https://www.fusioncharts.com/fusiontime).
 
   fcRoot(FusionCharts, Timeseries);
 
-  let jsonify = res => res.json(),
+  let promise,
+    jsonify = res => res.json(),
     dataFetch = fetch(
       'https://s3.eu-central-1.amazonaws.com/fusion.store/ft/data/line-chart-with-time-axis-data.json'
     ).then(jsonify),
     schemaFetch = fetch(
       'https://s3.eu-central-1.amazonaws.com/fusion.store/ft/schema/line-chart-with-time-axis-schema.json'
-    ).then(jsonify),
-    dataSource = {
-      caption: {
-        text: 'Sales Analysis'
-      },
-      subcaption: {
-        text: 'Grocery'
-      },
-      yAxis: [
-        {
-          plot: {
-            value: 'Grocery Sales Value',
-            type: 'line'
-          },
-          format: {
-            prefix: '$'
-          },
-          title: 'Sale Value'
-        }
-      ]
-    },
-    chartConfig = {
-      type: 'timeseries',
-      width: '600',
-      height: '400',
-      renderAt: 'chart-container',
-      dataSource 
-    };
+    ).then(jsonify);
 
-  Promise.all([dataFetch, schemaFetch]).then(res => {
-    const data = res[0],
-      schema = res[1],
-      fusionDataStore = new FusionCharts.DataStore(),
+  promise = Promise.all([dataFetch, schemaFetch]);
+
+  const getChartConfig = ([data, schema]) => {
+    const fusionDataStore = new FusionCharts.DataStore(),
       fusionTable = fusionDataStore.createDataTable(data, schema);
 
-    chartConfig = {
-      ...chartConfig,
+    return {
+      type: 'timeseries',
+      width: '100%',
+      height: 450,
+      renderAt: 'chart-container',
       dataSource: {
-        ...dataSource,
-        data: fusionTable
+        data: fusionTable,
+        caption: {
+          text: 'Sales Analysis'
+        },
+        subcaption: {
+          text: 'Grocery'
+        },
+        yAxis: [
+          {
+            plot: {
+              value: 'Grocery Sales Value',
+              type: 'line'
+            },
+            format: {
+              prefix: '$'
+            },
+            title: 'Sale Value'
+          }
+        ]
       }
     };
-  });
+  };
 </script>
 
 <div id="chart-container" >
-  <SvelteFC {...chartConfig} />
+  {#await promise}
+    <p>Fetching data and schema...</p>
+  {:then value}
+    <SvelteFC
+      {...getChartConfig(value)}
+    />
+  {:catch error}
+    <p>Something went wrong: {error.message}</p>
+  {/await}
 </div>
 ```
 
