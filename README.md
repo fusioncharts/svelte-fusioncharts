@@ -202,13 +202,11 @@ To attach event callbacks to a FusionCharts component, follow the sample below.
         { label: 'China', value: '30' }
       ]
     },
-    events = {
-      dataplotClick: function (e) {
-        // code for dataplotClick event handler
-      },
-      renderComplete: function (e) {
-        // code for renderComplete event handler
-      }
+    dataplotClickHandler = event => {
+      // code for dataplotClick event handler
+    },
+    renderCompleteHandler = event => {
+      // code for renderComplete event handler
     };
 
   const chartConfigs = {
@@ -216,12 +214,15 @@ To attach event callbacks to a FusionCharts component, follow the sample below.
     width: 600,
     height: 400,
     dataFormat: 'json',
-    dataSource: dataSource,
-    events: events
+    dataSource: dataSource
   };
 </script>
 
-<SvelteFC {...chartConfigs} />
+<SvelteFC
+  {...chartConfigs}
+  on:dataplotClick={dataplotClickHandler}
+  on:renderComplete={renderCompleteHandler}
+/>
 ```
 
 ## Working with APIs
