@@ -5,12 +5,11 @@ A simple and lightweight official Svelte component for FusionCharts JavaScript c
 ## [Demo](https://fusioncharts.github.io/svelte-fusioncharts/)
 
 - Github Repo: [https://github.com/fusioncharts/svelte-fusioncharts](https://github.com/fusioncharts/svelte-fusioncharts)
-- Documentation: [https://www.fusioncharts.com/dev/getting-started/svelte/your-first-chart-using-svelte](https://www.fusioncharts.com/dev/getting-started/svelte/your-first-chart-using-svelte)
 - Support: [https://www.fusioncharts.com/contact-support](https://www.fusioncharts.com/contact-support)
 - FusionCharts
   - Official Website: [https://www.fusioncharts.com/](https://www.fusioncharts.com/)
   - Official NPM Package: [https://www.npmjs.com/package/fusioncharts](https://www.npmjs.com/package/fusioncharts)
-- Issues: [https://github.com/fusioncharts/svelte-fusioncharts-component/issues](https://github.com/fusioncharts/svelte-fusioncharts-component/issues)
+- Issues: [https://github.com/fusioncharts/svelte-fusioncharts/issues](https://github.com/fusioncharts/svelte-fusioncharts/issues)
 
 ---
 
