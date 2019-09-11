@@ -6,7 +6,7 @@
   <!-- FC home -->
   <ul class="navbar-nav ml-auto">
     <li class="nav-item">
-      <a class="header-link" href="//github.com/priyanjitdey94/svelte-fusioncharts" target="_blank">GitHub Repository</a>
+      <a class="header-link" href="//github.com/fusioncharts/svelte-fusioncharts" target="_blank">GitHub Repository</a>
     </li>
   </ul>
 </nav>
