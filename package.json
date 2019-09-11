@@ -1,0 +1,47 @@
+{
+  "name": "svelte-fusioncharts",
+  "svelte": "src/index.svelte",
+  "module": "index.mjs",
+  "main": "index.js",
+  "scripts": {
+    "build": "rollup -c",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "rollup": "^1.11.0",
+    "rollup-plugin-node-resolve": "^4.0.0",
+    "rollup-plugin-svelte": "^5.0.0",
+    "svelte": "^3.0.0"
+  },
+  "keywords": [
+    "svelte",
+    "fusioncharts",
+    "powercharts",
+    "fusionwidgets",
+    "fusionmaps",
+    "fusiontime",
+    "timeseries",
+    "wrapper",
+    "charting-library",
+    "svelte-fusioncharts",
+    "svelte-wrapper"
+  ],
+  "files": [
+    "src",
+    "index.mjs",
+    "index.js"
+  ],
+  "description": "A simple and lightweight official Svelte component for FusionCharts JavaScript charting library. `svelte-fusioncharts` enables you to add JavaScript charts in your Svelte application or project without any hassle.",
+  "version": "1.0.0",
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/priyanjitdey94/svelte-fusioncharts.git"
+  },
+  "author": "Priyanjit Dey <priyanjit.dey@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/priyanjitdey94/svelte-fusioncharts/issues"
+  },
+  "homepage": "https://github.com/priyanjitdey94/svelte-fusioncharts#readme"
+}
