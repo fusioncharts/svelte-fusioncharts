@@ -1,5 +1,6 @@
 <script>
   import CodeMirror from 'codemirror';
+  import vue from 'codemirror/mode/vue/vue';
   import js from 'codemirror/mode/vue/vue';
   import 'codemirror/theme/dracula.css';
 
@@ -38,6 +39,7 @@
       if (!jsBtn.classList.contains('selected')) {
         jsBtn.classList.add('selected')
       }
+      jsonCode.setOption('mode', 'vue');
       jsonCode.setValue(sampleConfig[sampleId].code + '\n\n' + sampleConfig[sampleId].html);
       dataBtn.classList.remove('selected');
       schemaBtn && schemaBtn.classList.remove('selected');
@@ -46,6 +48,7 @@
       if (!dataBtn.classList.contains('selected')) {
         dataBtn.classList.add('selected')
       }
+      jsonCode.setOption('mode', 'javascript');
       jsonCode.setValue(sampleConfig[sampleId].data);
       jsBtn.classList.remove('selected');
       schemaBtn && schemaBtn.classList.remove('selected');
@@ -54,6 +57,7 @@
       if (!schemaBtn.classList.contains('selected')) {
         schemaBtn.classList.add('selected')
       }
+      jsonCode.setOption('mode', 'javascript');
       jsonCode.setValue(sampleConfig[sampleId].schema || '');
       dataBtn.classList.remove('selected');
       jsBtn.classList.remove('selected');
@@ -80,6 +84,7 @@
   });
 
   afterUpdate(() => {
+    jsonCode.setOption('mode', 'vue');
     jsonCode.setValue(sampleConfig[sampleId]['code'] + '\n\n' + sampleConfig[sampleId]['html']);
 
     dataBtn.classList.remove('selected');
@@ -90,6 +95,12 @@
     }
   });
 </script>
+
+<style>
+  .lowercase-btn {
+    text-transform: none;
+  }
+</style>
 
 <!-- Demo Section start -->
 <div class="demo bg-light-purple pt-4 pb-4">
@@ -170,7 +181,7 @@
                 }}
                 data-id="code"
                 type="button"
-                class="btn btn-code selected"
+                class="btn btn-code selected lowercase-btn"
               >
                 Svelte
               </button>
@@ -181,9 +192,9 @@
                 }}
                 data-id="data"
                 type="button"
-                class="btn btn-code"
+                class="btn btn-code lowercase-btn"
               >
-                Data
+                data.js
               </button>
               {#if curItem.type === 'fusiontime'}
                 <button
@@ -193,9 +204,9 @@
                   }}
                   data-id="schema"
                   type="button"
-                  class="btn btn-code schema-btn"
+                  class="btn btn-code schema-btn lowercase-btn"
                 >
-                  Schema
+                  schema.js
                 </button>
               {/if}
             </div>
