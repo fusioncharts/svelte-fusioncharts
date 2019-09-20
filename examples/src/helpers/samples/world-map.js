@@ -5,24 +5,24 @@ const code =
   import World from 'fusioncharts/maps/fusioncharts.world';
   import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
   import SvelteFC, { fcRoot } from 'svelte-fusioncharts';
+  import dataSource from './data.js';
 
   fcRoot(FusionCharts, Maps, World, FusionTheme);
 
-  let dataSource = { /* see data tab */ },
-    chartConfig = {
-      type: 'world',
-      renderAt: 'chart-container',
-      width: '600',
-      height: '400',
-      dataSource
-    };
+  let chartConfig = {
+    type: 'world',
+    renderAt: 'chart-container',
+    width: '600',
+    height: '400',
+    dataSource
+  };
 </script>`,
 html =
 `<div id="chart-container" >
   <SvelteFC {...chartConfig} />
 </div>`,
 data =
-`{
+`export default {
   "chart": {
     "caption": "Average Annual Population Growth",
     "subcaption": " 1955-2015",

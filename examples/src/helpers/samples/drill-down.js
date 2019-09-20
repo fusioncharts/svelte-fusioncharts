@@ -3,12 +3,12 @@ const code =
   import FusionCharts from 'fusioncharts';
   import Charts from 'fusioncharts/fusioncharts.charts';
   import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
-  import SvelteFC, { fcRoot } from '../../../../index.mjs';
+  import SvelteFC, { fcRoot } from 'svelte-fusioncharts';
+  import dataSource from './data.js';
 
   fcRoot(FusionCharts, Charts, FusionTheme);
 
   let chartObj,
-    dataSource = { /* see data tab */ },
     chartConfig = {
       type: 'column2d',
       renderAt: 'chart-container',
@@ -40,7 +40,7 @@ html =
   />
 </div>`,
 data =
-`{
+`export default {
   "chart": {
     "caption": "Sales of top 3 juice flavors last year",
     "subcaption": "Click on a column to see details",

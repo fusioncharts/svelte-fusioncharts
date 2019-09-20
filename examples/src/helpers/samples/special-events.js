@@ -4,6 +4,7 @@ const code =
   import PowerCharts from 'fusioncharts/fusioncharts.powercharts';
   import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
   import SvelteFC, { fcRoot } from 'svelte-fusioncharts';
+  import dataSource from './data.js';
 
   import { onDestroy } from 'svelte';
 
@@ -11,7 +12,6 @@ const code =
 
   let para,
     chartObj,
-    dataSource = { /* see data tab */ },
     chartConfig = {
       type: 'dragcolumn2d',
       renderAt: 'chart-container',
@@ -44,7 +44,7 @@ html =
   </p>
 </div>`,
 data =
-`{
+`export default {
   "chart": {
     "caption": "Android and iOS Devices Sales Projections",
     "subCaption": "Drag the top of columns to adjust projections for 2017 & 2018",

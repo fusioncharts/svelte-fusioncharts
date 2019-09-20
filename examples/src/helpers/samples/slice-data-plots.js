@@ -5,11 +5,11 @@ const code =
 
   import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
   import SvelteFC, { fcRoot } from 'svelte-fusioncharts';
+  import dataSource from './data.js';
 
   fcRoot(FusionCharts, Charts, FusionTheme);
 
   let chartObj,
-    dataSource = { /* see data tab */ },
     chartConfig = {
       type: 'pie2d',
       width: '600',
@@ -89,7 +89,7 @@ html =
   </div>
 </div>`,
 data =
-`{
+`export default {
   "chart": {
     "caption": "Market Share of Web Servers",
     "plottooltext": "<b>$percentValue</b> of web servers run on $label servers",

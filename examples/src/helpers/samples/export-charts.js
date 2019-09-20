@@ -4,11 +4,11 @@ const code =
   import Charts from 'fusioncharts/fusioncharts.charts';
   import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
   import SvelteFC, { fcRoot } from 'svelte-fusioncharts';
+  import dataSource from './data.js';
 
   fcRoot(FusionCharts, Charts, FusionTheme);
 
-  let dataSource = { /* see data tab */ },
-    chartConfigColumn = {
+  let chartConfigColumn = {
       type: 'column2d',
       renderAt: 'chart-container1',
       width: '600',
@@ -40,7 +40,7 @@ html =
   <button class="btn btn-outline-secondary btn-sm" on:click={exportHandler}>Export Both charts as a single pdf</button>
 </div>`,
 data =
-`{
+`export default {
   "columnData":
   {
       "chart": {
