@@ -15,7 +15,6 @@
     chartCode,
     jsonCode,
     jsBtn,
-    htmlBtn,
     dataBtn,
     schemaBtn,
     modal,
@@ -39,17 +38,7 @@
       if (!jsBtn.classList.contains('selected')) {
         jsBtn.classList.add('selected')
       }
-      jsonCode.setValue(sampleConfig[sampleId].code);
-      htmlBtn.classList.remove('selected');
-      dataBtn.classList.remove('selected');
-      schemaBtn && schemaBtn.classList.remove('selected');
-    },
-    showHTML = () => {
-      if (!htmlBtn.classList.contains('selected')) {
-        htmlBtn.classList.add('selected')
-      }
-      jsonCode.setValue(sampleConfig[sampleId].html);
-      jsBtn.classList.remove('selected');
+      jsonCode.setValue(sampleConfig[sampleId].code + '\n\n' + sampleConfig[sampleId].html);
       dataBtn.classList.remove('selected');
       schemaBtn && schemaBtn.classList.remove('selected');
     },
@@ -58,7 +47,6 @@
         dataBtn.classList.add('selected')
       }
       jsonCode.setValue(sampleConfig[sampleId].data);
-      htmlBtn.classList.remove('selected');
       jsBtn.classList.remove('selected');
       schemaBtn && schemaBtn.classList.remove('selected');
     },
@@ -67,7 +55,6 @@
         schemaBtn.classList.add('selected')
       }
       jsonCode.setValue(sampleConfig[sampleId].schema || '');
-      htmlBtn.classList.remove('selected');
       dataBtn.classList.remove('selected');
       jsBtn.classList.remove('selected');
     },
@@ -93,9 +80,8 @@
   });
 
   afterUpdate(() => {
-    jsonCode.setValue(sampleConfig[sampleId]['code']);
+    jsonCode.setValue(sampleConfig[sampleId]['code'] + '\n\n' + sampleConfig[sampleId]['html']);
 
-    htmlBtn.classList.remove('selected');
     dataBtn.classList.remove('selected');
     schemaBtn && schemaBtn.classList.remove('selected');
 
@@ -186,18 +172,7 @@
                 type="button"
                 class="btn btn-code selected"
               >
-                JavaScript
-              </button>
-              <button
-                bind:this={htmlBtn}
-                on:click={() => {
-                  showHTML('html');
-                }}
-                data-id="html"
-                type="button"
-                class="btn btn-code"
-              >
-                HTML
+                Svelte
               </button>
               <button
                 bind:this={dataBtn}

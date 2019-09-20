@@ -13,9 +13,7 @@
     c2,
     c3,
     c4,
-    c5,
-    c6,
-    c7;
+    c5;
 
   onMount(() => {
     CodeMirror(c1, {
@@ -52,7 +50,7 @@
       readOnly: true,
       theme: 'dracula',
       mode: 'vue'
-    }).setValue(CodeSnippets.renderFcCode);
+    }).setValue(CodeSnippets.renderFcCode + '\n\n' + CodeSnippets.renderFcHTML);
 
     CodeMirror(c5, {
       tabSize: '2',
@@ -61,25 +59,7 @@
       readOnly: true,
       theme: 'dracula',
       mode: 'vue'
-    }).setValue(CodeSnippets.renderFcHTML);
-
-    CodeMirror(c6, {
-      tabSize: '2',
-      smartIndent: true,
-      lineNumbers: true,
-      readOnly: true,
-      theme: 'dracula',
-      mode: 'vue'
-    }).setValue(CodeSnippets.renderFtCode);
-
-    CodeMirror(c7, {
-      tabSize: '2',
-      smartIndent: true,
-      lineNumbers: true,
-      readOnly: true,
-      theme: 'dracula',
-      mode: 'vue'
-    }).setValue(CodeSnippets.renderFtHTML);
+    }).setValue(CodeSnippets.renderFtCode + '\n\n' + CodeSnippets.renderFtHTML);
   });
 </script>
 
@@ -161,18 +141,6 @@
           </div>
         </div>
       </div>
-      <p class="code-desc mt-2 mb-1">
-        Here's the HTML template for the above example.
-      </p>
-      <div class="code-view mt-2">
-        <div class="card-shadow">
-          <div class="card-body p-0">
-            <div class="code-panel">
-              <div class="codeMirrorDiv" id="c5" bind:this={c5}></div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
   <!-- FusionTime Integration -->
@@ -193,19 +161,7 @@
         <div class="card-shadow">
           <div class="card-body p-0">
             <div class="code-panel">
-              <div class="codeMirrorDiv" id="c6" bind:this={c6}></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <p class="code-desc mt-2 mb-1">
-        Here's the HTML template for the above example.
-      </p>
-      <div class="code-view mt-2">
-        <div class="card-shadow">
-          <div class="card-body p-0">
-            <div class="code-panel">
-              <div class="codeMirrorDiv" id="c7" bind:this={c7}></div>
+              <div class="codeMirrorDiv" id="c6" bind:this={c5}></div>
             </div>
           </div>
         </div>
