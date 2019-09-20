@@ -5,6 +5,7 @@ const code =
 
   import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
   import SvelteFC, { fcRoot } from 'svelte-fusioncharts';
+  import dataSource from './data.js';
 
   fcRoot(FusionCharts, Charts, FusionTheme);
 
@@ -15,7 +16,7 @@ const code =
       width: '600',
       height: '350',
       renderAt: 'chart-container',
-      dataSource: { /* see data tab */ }
+      dataSource
     };
 
   const resizeChart = (width, height) => {
@@ -66,7 +67,7 @@ html =
   </div>
 </div>`,
 data =
-`{
+`export default {
   "chart": {
     "caption": "Countries With Most Oil Reserves [2017-18]",
     "subCaption": "In MMbbl = One Million barrels",

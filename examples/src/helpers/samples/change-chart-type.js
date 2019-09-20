@@ -7,11 +7,11 @@ const code =
   import SvelteFC, { fcRoot } from 'svelte-fusioncharts';
 
   import { sampleNames } from '../utils/constants.js';
+  import dataSource from './data.js';
 
   fcRoot(FusionCharts, Charts, FusionTheme);
 
   let chartObj,
-    dataSource = { /* see data tab */ }
     chartConfig = {
       id: 'column-chart',
       type: 'column2d',
@@ -68,7 +68,7 @@ html =
   </div>
 </div>`,
 data =
-`{
+`export default {
   "chart": {
     "caption": "Recommended Portfolio Split",
     "subCaption" : "For a net-worth of $1M",

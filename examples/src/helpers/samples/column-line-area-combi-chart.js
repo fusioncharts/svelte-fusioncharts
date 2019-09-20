@@ -4,6 +4,7 @@ const code =
   import Charts from 'fusioncharts/fusioncharts.charts';
   import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
   import SvelteFC, { fcRoot } from 'svelte-fusioncharts';
+  import dataSource from './data.js';
 
   fcRoot(FusionCharts, Charts, FusionTheme);
 
@@ -12,7 +13,7 @@ const code =
     width: '600',
     height: '400',
     renderAt: 'chart-container',
-    dataSource: { /* see data tab */ }
+    dataSource
   };
 </script>`,
 html =
@@ -20,7 +21,7 @@ html =
   <SvelteFC {...chartConfig} />
 </div>`,
 data =
-`{
+`export default {
   "chart": {
       "caption": "Expense Analysis",
       "subCaption": "ACME Inc.",

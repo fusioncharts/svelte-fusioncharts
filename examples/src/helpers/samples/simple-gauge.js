@@ -4,10 +4,11 @@ const code =
   import Widgets from 'fusioncharts/fusioncharts.widgets';
   import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
   import SvelteFC, { fcRoot } from 'svelte-fusioncharts';
+  import dataSource from './data.js';
 
   fcRoot(FusionCharts, Widgets, FusionTheme);
 
-  let dataSource = { /* see data tab */ },
+  let dataSource,
     chartConfig = {
       type: 'angulargauge',
       width: '600',
@@ -21,7 +22,7 @@ html =
   <SvelteFC {...chartConfig} />
 </div>`,
 data =
-`{
+`export default {
   "chart": {
     "caption": "Nordstorm's Customer Satisfaction Score for 2017",
     "lowerLimit": "0",

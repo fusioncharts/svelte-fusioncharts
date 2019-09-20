@@ -4,11 +4,11 @@ const code =
   import Charts from 'fusioncharts/fusioncharts.charts';
   import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
   import SvelteFC, { fcRoot } from 'svelte-fusioncharts';
+  import dataSource from './data.js';
 
   fcRoot(FusionCharts, Charts, FusionTheme);
 
   let para,
-    dataSource = { /* see data tab */ },
     chartConfig = {
       type: 'column2d',
       renderAt: 'chart-container',
@@ -41,7 +41,7 @@ html =
   </p>
 </div>`,
 data =
-`{
+`export default {
   "chart": {
     "caption": "Countries With Most Oil Reserves [2017-18]",
     "subCaption": "In MMbbl = One Million barrels",

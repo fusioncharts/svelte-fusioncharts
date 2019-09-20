@@ -4,6 +4,7 @@ const code =
   import Charts from 'fusioncharts/fusioncharts.charts';
   import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
   import SvelteFC, { fcRoot } from 'svelte-fusioncharts';
+  import dataSource from './data.js';
 
   import { onDestroy } from 'svelte';
 
@@ -12,7 +13,6 @@ const code =
   let para,
     enableButton,
     disableButton,
-    dataSource = { /* see data tab */ },
     chartConfig = {
       type: 'column2d',
       renderAt: 'chart-container',
@@ -69,7 +69,7 @@ html =
   </button>
 </div>`,
 data =
-`{
+`export default {
   "chart": {
     "caption": "Countries With Most Oil Reserves [2017-18]",
     "subCaption": "In MMbbl = One Million barrels",
