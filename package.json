@@ -33,7 +33,9 @@
   ],
   "description": "A simple and lightweight official Svelte component for FusionCharts JavaScript charting library. `svelte-fusioncharts` enables you to add JavaScript charts in your Svelte application or project without any hassle.",
   "version": "1.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "fusioncharts": "^3.16.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/priyanjitdey94/svelte-fusioncharts.git"
