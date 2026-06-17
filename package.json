@@ -1,17 +1,21 @@
 {
   "name": "svelte-fusioncharts",
-  "version": "1.1.0",
-  "description": "A simple and lightweight official Svelte component for FusionCharts JavaScript charting library. `svelte-fusioncharts` enables you to add JavaScript charts in your Svelte application or project without any hassle.",
-  "main": "index.js",
-  "module": "index.mjs",
+  "version": "2.0.0",
+  "description": "A simple and lightweight official Svelte component for FusionCharts JavaScript charting library. `svelte-fusioncharts` enables you to add JavaScript charts in your Svelte application or project without any hassle. Works with both Svelte 4 and Svelte 5.",
   "type": "module",
-  "svelte": "src/index.svelte",
-  "scripts": {
-    "build": "rollup -c"
+  "svelte": "./src/index.svelte",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "svelte": "./src/index.svelte",
+      "default": "./src/index.svelte"
+    },
+    "./package.json": "./package.json"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/priyanjitdey94/svelte-fusioncharts.git"
+    "url": "git+https://github.com/fusioncharts/svelte-fusioncharts.git"
   },
   "keywords": [
     "svelte",
@@ -28,18 +32,17 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/priyanjitdey94/svelte-fusioncharts/issues"
+    "url": "https://github.com/fusioncharts/svelte-fusioncharts/issues"
   },
-  "homepage": "https://github.com/priyanjitdey94/svelte-fusioncharts#readme",
+  "homepage": "https://github.com/fusioncharts/svelte-fusioncharts#readme",
   "dependencies": {},
-  "devDependencies": {
-    "rollup": "^4.17.2",
-    "rollup-plugin-svelte": "^7.2.0",
-    "svelte": "^4.0.0"
+  "peerDependencies": {
+    "svelte": "^4.0.0 || ^5.0.0"
   },
   "files": [
     "src",
-    "index.mjs",
-    "index.js"
+    "index.d.ts",
+    "README.md",
+    "LICENSE"
   ]
 }

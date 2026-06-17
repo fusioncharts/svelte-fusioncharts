@@ -1,50 +1,51 @@
 <script>
   import FusionCharts from 'fusioncharts';
   import Charts from 'fusioncharts/fusioncharts.charts';
-  
   import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
-  import SvelteFC, { fcRoot } from '../../../../src/index.svelte';
+  import SvelteFC, { fcRoot } from 'svelte-fusioncharts';
 
   fcRoot(FusionCharts, Charts, FusionTheme);
 
   let chartObj,
     chartConfig = {
-      type: 'pie2d',
+      id: 'cct-chart',
+      type: 'column2d',
       width: '100%',
       height: 400,
-      renderAt: 'chart-container',
+      renderAt: 'cct-container',
       dataSource: {
         "chart": {
-          "caption": "Market Share of Web Servers",
-          "plottooltext": "<b>$percentValue</b> of web servers run on $label servers",
-          "showLegend": "1",
-          "showPercentValues": "1",
-          "legendPosition": "bottom",
-          "useDataPlotColorForLabels": "1",
-          "enablemultislicing": "0",
-          "showlegend": "0",
-          "theme": "fusion",
+          "caption": "Recommended Portfolio Split",
+          "subCaption" : "For a net-worth of $1M",
+          "showValues":"1",
+          "showPercentInTooltip" : "0",
+          "numberPrefix" : "$",
+          "enableMultiSlicing":"1",
+          "theme": "fusion"
         },
-        "data": [{
-          "label": "Apache",
-          "value": "32647479"
-        }, {
-          "label": "Microsoft",
-          "value": "22100932"
-        }, {
-          "label": "Zeus",
-          "value": "14376"
-        }, {
-          "label": "Other",
-          "value": "18674221"
-        }]
+        "data": [
+          {
+            "label": "Equity",
+            "value": "300000"
+          }, {
+            "label": "Debt",
+            "value": "230000"
+          }, {
+            "label": "Bullion",
+            "value": "180000"
+          }, {
+            "label": "Real-estate",
+            "value": "270000"
+          }, {
+            "label": "Insurance",
+            "value": "20000"
+          }
+        ]
       }
     };
 
-  const sliceDataPlot = (indices, sliceOut = true) => {
-    indices.forEach(index => {
-      chartObj.slicePlotItem(index, sliceOut);
-    });
+  const changeChartTypeHandler = arg => {
+    chartObj.chartType(arg);
   };
 </script>
 
@@ -119,66 +120,44 @@
   }
 </style>
 
-<div id='chart-container' style='height: 90%;' >
+<div id='cct-container' style='height: 90%;' >
   <SvelteFC {...chartConfig} bind:chart={chartObj} />
 </div>
 <div style="display: flex; position: absolute; bottom: 15px; justify-content: center; width: 100%">
   <div class="change-type">
-    <div id="radio1">
+    <div id="cct-radio1">
       <input
-        name="theme-selecter"
-        id="radioButton1"
+        name="cct-type-selecter"
+        id="cctRadioButton1"
         type="radio"
         on:change={() => {
-          sliceDataPlot([0, 1, 2, 3], false);
+          changeChartTypeHandler('column2d');
         }}
         checked="checked"
       >
-      <label for="radioButton1">None</label>
+      <label for="cctRadioButton1">Column 2D Chart</label>
     </div>
-    <div id="radio2">
+    <div id="cct-radio2">
       <input
-        name="theme-selecter"
-        id="radioButton2"
+        name="cct-type-selecter"
+        id="cctRadioButton2"
         type="radio"
         on:change={() => {
-          sliceDataPlot([0]);
+          changeChartTypeHandler('bar2d');
         }}
       >
-      <label for="radioButton2">Apache</label>
+      <label for="cctRadioButton2">Bar 2D Chart</label>
     </div>
-    <div id="radio3">
+    <div id="cct-radio3">
       <input
-        name="theme-selecter"
-        id="radioButton3"
+        name="cct-type-selecter"
+        id="cctRadioButton3"
         type="radio"
         on:change={() => {
-          sliceDataPlot([1]);
+          changeChartTypeHandler('pie2d');
         }}
       >
-      <label for="radioButton3">Microsoft</label>
-    </div>
-    <div id="radio3">
-      <input
-        name="theme-selecter"
-        id="radioButton3"
-        type="radio"
-        on:change={() => {
-          sliceDataPlot([2]);
-        }}
-      >
-      <label for="radioButton3">Zeus</label>
-    </div>
-    <div id="radio3">
-      <input
-        name="theme-selecter"
-        id="radioButton3"
-        type="radio"
-        on:change={() => {
-          sliceDataPlot([3]);
-        }}
-      >
-      <label for="radioButton3">Other</label>
+      <label for="cctRadioButton3">Pie 2D Chart</label>
     </div>
   </div>
 </div>

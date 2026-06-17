@@ -1,50 +1,57 @@
 <script>
   import FusionCharts from 'fusioncharts';
   import Charts from 'fusioncharts/fusioncharts.charts';
-  
   import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
-  import SvelteFC, { fcRoot } from '../../../../src/index.svelte';
+  import SvelteFC, { fcRoot } from 'svelte-fusioncharts';
 
   fcRoot(FusionCharts, Charts, FusionTheme);
 
   let chartObj,
     chartConfig = {
-      type: 'pie2d',
-      width: '100%',
-      height: 400,
-      renderAt: 'chart-container',
+      id: 'rc-chart',
+      type: 'column2d',
+      width: '600',
+      height: '350',
+      renderAt: 'rc-container',
       dataSource: {
         "chart": {
-          "caption": "Market Share of Web Servers",
-          "plottooltext": "<b>$percentValue</b> of web servers run on $label servers",
-          "showLegend": "1",
-          "showPercentValues": "1",
-          "legendPosition": "bottom",
-          "useDataPlotColorForLabels": "1",
-          "enablemultislicing": "0",
-          "showlegend": "0",
-          "theme": "fusion",
+          "caption": "Countries With Most Oil Reserves [2017-18]",
+          "subCaption": "In MMbbl = One Million barrels",
+          "xAxisName": "Country",
+          "yAxisName": "Reserves (MMbbl)",
+          "numberSuffix": "K",
+          "theme": "fusion"
         },
         "data": [{
-          "label": "Apache",
-          "value": "32647479"
+          "label": "Venezuela",
+          "value": "290"
         }, {
-          "label": "Microsoft",
-          "value": "22100932"
+          "label": "Saudi",
+          "value": "260"
         }, {
-          "label": "Zeus",
-          "value": "14376"
+          "label": "Canada",
+          "value": "180"
         }, {
-          "label": "Other",
-          "value": "18674221"
+          "label": "Iran",
+          "value": "140"
+        }, {
+          "label": "Russia",
+          "value": "115"
+        }, {
+          "label": "UAE",
+          "value": "100"
+        }, {
+          "label": "US",
+          "value": "30"
+        }, {
+          "label": "China",
+          "value": "30"
         }]
       }
     };
 
-  const sliceDataPlot = (indices, sliceOut = true) => {
-    indices.forEach(index => {
-      chartObj.slicePlotItem(index, sliceOut);
-    });
+  const resizeChart = (width, height) => {
+    chartObj.resizeTo(width, height);
   };
 </script>
 
@@ -117,68 +124,51 @@
   .change-type input:checked~label:after {
     background: #55bd8d;
   }
+
+  #rc-select-text {
+    padding: 4px;
+  }
 </style>
 
-<div id='chart-container' style='height: 90%;' >
+<div id='rc-container' style='height: 90%; text-align: left;' >
   <SvelteFC {...chartConfig} bind:chart={chartObj} />
 </div>
 <div style="display: flex; position: absolute; bottom: 15px; justify-content: center; width: 100%">
+  <div id="rc-select-text">Select size:</div>
   <div class="change-type">
-    <div id="radio1">
+    <div id="rc-radio1">
       <input
-        name="theme-selecter"
-        id="radioButton1"
+        name="rc-size-selecter"
+        id="rcRadioButton1"
         type="radio"
         on:change={() => {
-          sliceDataPlot([0, 1, 2, 3], false);
+          resizeChart(400, 250);
+        }}
+      >
+      <label for="rcRadioButton1">400 X 250</label>
+    </div>
+    <div id="rc-radio2">
+      <input
+        name="rc-size-selecter"
+        id="rcRadioButton2"
+        type="radio"
+        on:change={() => {
+          resizeChart(600, 350);
         }}
         checked="checked"
       >
-      <label for="radioButton1">None</label>
+      <label for="rcRadioButton2">600 X 350</label>
     </div>
-    <div id="radio2">
+    <div id="rc-radio3">
       <input
-        name="theme-selecter"
-        id="radioButton2"
+        name="rc-size-selecter"
+        id="rcRadioButton3"
         type="radio"
         on:change={() => {
-          sliceDataPlot([0]);
+          resizeChart(700, 400);
         }}
       >
-      <label for="radioButton2">Apache</label>
-    </div>
-    <div id="radio3">
-      <input
-        name="theme-selecter"
-        id="radioButton3"
-        type="radio"
-        on:change={() => {
-          sliceDataPlot([1]);
-        }}
-      >
-      <label for="radioButton3">Microsoft</label>
-    </div>
-    <div id="radio3">
-      <input
-        name="theme-selecter"
-        id="radioButton3"
-        type="radio"
-        on:change={() => {
-          sliceDataPlot([2]);
-        }}
-      >
-      <label for="radioButton3">Zeus</label>
-    </div>
-    <div id="radio3">
-      <input
-        name="theme-selecter"
-        id="radioButton3"
-        type="radio"
-        on:change={() => {
-          sliceDataPlot([3]);
-        }}
-      >
-      <label for="radioButton3">Other</label>
+      <label for="rcRadioButton3">700 X 400</label>
     </div>
   </div>
 </div>
