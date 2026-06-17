@@ -1,21 +1,21 @@
 <script>
   import FusionCharts from 'fusioncharts';
   import Timeseries from 'fusioncharts/fusioncharts.timeseries';
-  import SvelteFC, { fcRoot } from '../../../../src/index.svelte';
+  import SvelteFC, { fcRoot } from 'svelte-fusioncharts';
 
   fcRoot(FusionCharts, Timeseries);
 
   let promise,
     jsonify = res => res.json(),
     dataFetch = fetch(
-      'https://s3.eu-central-1.amazonaws.com/fusion.store/ft/data/adding-a-reference-line-data.json'
+      'https://s3.eu-central-1.amazonaws.com/fusion.store/ft/data/line-chart-with-time-axis-data.json'
     ).then(jsonify),
     schemaFetch = fetch(
-      'https://s3.eu-central-1.amazonaws.com/fusion.store/ft/schema/adding-a-reference-line-schema.json'
+      'https://s3.eu-central-1.amazonaws.com/fusion.store/ft/schema/line-chart-with-time-axis-schema.json'
     ).then(jsonify);
 
   promise = Promise.all([dataFetch, schemaFetch]);
-  
+
   const getChartConfig = ([data, schema]) => {
     const fusionDataStore = new FusionCharts.DataStore(),
       fusionTable = fusionDataStore.createDataTable(data, schema);
@@ -24,30 +24,25 @@
       type: 'timeseries',
       width: '100%',
       height: 450,
-      renderAt: 'chart-container',
+      renderAt: 'sts-container',
       dataSource: {
         data: fusionTable,
         caption: {
-          text: 'Temperature readings in Italy'
+          text: 'Sales Analysis'
+        },
+        subcaption: {
+          text: 'Grocery'
         },
         yAxis: [
           {
-            plot: 'Temperature',
-            title: 'Temperature',
+            plot: {
+              value: 'Grocery Sales Value',
+              type: 'line'
+            },
             format: {
-              suffix: '°C'
+              prefix: '$'
             },
-            style: {
-              title: {
-                'font-size': '14px'
-              }
-            },
-            referenceLine: [
-              {
-                label: 'Controlled Temperature',
-                value: '10'
-              }
-            ]
+            title: 'Sale Value'
           }
         ]
       }
@@ -55,7 +50,7 @@
   };
 </script>
 
-<div id='chart-container' style='height: inherit;' >
+<div id='sts-container' style='height: inherit;' >
   {#await promise}
     <p>Fetching data and schema...</p>
   {:then value}

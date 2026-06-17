@@ -2,11 +2,12 @@
   import FusionCharts from 'fusioncharts';
   import Charts from 'fusioncharts/fusioncharts.charts';
   import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
-  import SvelteFC, { fcRoot } from '../../../../src/index.svelte';
+  import SvelteFC, { fcRoot } from 'svelte-fusioncharts';
 
   fcRoot(FusionCharts, Charts, FusionTheme);
 
-  let dataSource = {
+  let para,
+    dataSource = {
       "chart": {
         "caption": "Countries With Most Oil Reserves [2017-18]",
         "subCaption": "In MMbbl = One Million barrels",
@@ -43,13 +44,31 @@
     },
     chartConfig = {
       type: 'column2d',
+      renderAt: 'te-container',
       width: '100%',
-      height: 450,
-      renderAt: 'chart-container',
+      height: 400,
       dataSource
+    };
+
+  const rollOverHandler = customEvent => {
+      let args = customEvent.detail.data;
+      para.innerHTML = 'You are currently hovering over <b>' + args.categoryLabel +
+            '</b> whose value is <b>' + args.displayValue + '</b>';
+    },
+    rollOutHandler = () => {
+      para.innerHTML = 'Hover on the plot to see the value along with the label';
     };
 </script>
 
-<div id='chart-container' style='height: inherit;' >
-  <SvelteFC {...chartConfig} />
+<div id='te-container' style='height: 90%;' >
+  <SvelteFC
+    {...chartConfig}
+    on:dataplotRollOver={rollOverHandler}
+    on:dataplotRollOut={rollOutHandler}
+  />
+</div>
+<div>
+  <p bind:this={para} id='te-message' style='padding: 10px; background: rgb(245, 242, 240);' >
+    Hover on the plot to see the value along with the label
+  </p>
 </div>
