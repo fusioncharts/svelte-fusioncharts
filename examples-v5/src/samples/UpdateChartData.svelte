@@ -2,18 +2,24 @@
   import FusionCharts from 'fusioncharts';
   import Charts from 'fusioncharts/fusioncharts.charts';
   import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
-  import SvelteFC, { fcRoot } from '../../../../src/index.svelte';
+  import SvelteFC, { fcRoot } from 'svelte-fusioncharts';
 
   fcRoot(FusionCharts, Charts, FusionTheme);
 
-  let dataSource = {
+  let chartConfig = {
+    type: 'column2d',
+    width: '100%',
+    height: 400,
+    renderAt: 'ucd-container',
+    dataSource: {
       "chart": {
         "caption": "Countries With Most Oil Reserves [2017-18]",
         "subCaption": "In MMbbl = One Million barrels",
         "xAxisName": "Country",
         "yAxisName": "Reserves (MMbbl)",
         "numberSuffix": "K",
-        "theme": "fusion"
+        "theme": "fusion",
+        "updateAnimduration": "0.4"
       },
       "data": [{
         "label": "Venezuela",
@@ -40,16 +46,29 @@
         "label": "China",
         "value": "30"
       }]
+    }
+  };
+
+  const getRandomNumber = () => {
+      let max = 300, min = 50;
+      return Math.round(((max - min) * Math.random()) + min);
     },
-    chartConfig = {
-      type: 'column2d',
-      width: '100%',
-      height: 450,
-      renderAt: 'chart-container',
-      dataSource
+    updateDataHandler = () => {
+      let dataSource = chartConfig.dataSource;
+
+      dataSource.data[2].value = getRandomNumber();
+      dataSource.data[3].value = getRandomNumber();
+
+      chartConfig = {
+        ...chartConfig,
+        dataSource
+      };
     };
 </script>
 
-<div id='chart-container' style='height: inherit;' >
+<div id='ucd-container' style='height: 90%;' >
   <SvelteFC {...chartConfig} />
+</div>
+<div style="text-align: center; padding-top: 5px;">
+  <button on:click={updateDataHandler}>Click to Update Data</button>
 </div>

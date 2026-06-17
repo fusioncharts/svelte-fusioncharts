@@ -2,7 +2,7 @@
   import FusionCharts from 'fusioncharts';
   import Charts from 'fusioncharts/fusioncharts.charts';
   import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
-  import SvelteFC, { fcRoot } from '../../../../src/index.svelte';
+  import SvelteFC, { fcRoot } from 'svelte-fusioncharts';
 
   fcRoot(FusionCharts, Charts, FusionTheme);
 
@@ -45,11 +45,11 @@
       type: 'column2d',
       width: '100%',
       height: 450,
-      renderAt: 'chart-container',
+      renderAt: 'sc-container',
       dataSource
     };
 </script>
 
-<div id='chart-container' style='height: inherit;' >
+<div id='sc-container' style='height: inherit;' >
   <SvelteFC {...chartConfig} />
 </div>

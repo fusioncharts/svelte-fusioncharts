@@ -19,6 +19,6 @@
   },
   "dependencies": {
     "codemirror": "^5.48.4",
-    "fusioncharts": "^3.14.0-sr.1"
+    "fusioncharts": "^3.23.0"
   }
 }
