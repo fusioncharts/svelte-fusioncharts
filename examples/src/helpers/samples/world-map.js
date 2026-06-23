@@ -11,7 +11,6 @@ const code =
 
   let chartConfig = {
     type: 'world',
-    renderAt: 'chart-container',
     width: '600',
     height: '400',
     dataSource

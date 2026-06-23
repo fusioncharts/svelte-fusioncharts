@@ -13,7 +13,6 @@ const code =
     type: 'spline',
     width: '600',
     height: '400',
-    renderAt: 'chart-container',
     dataSource
   };
 </script>`,

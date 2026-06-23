@@ -75,7 +75,6 @@
     },
     chartConfig = {
       type: 'world',
-      renderAt: 'chart-container',
       width: '100%',
       height: 450,
       dataSource

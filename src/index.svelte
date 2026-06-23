@@ -116,10 +116,13 @@
 
         FusionCharts.ready(function () {
             internal.chart = new FusionCharts(chartConfig);
+            // Expose the live instance for `bind:chart` consumers *before* render so
+            // handlers for early lifecycle events (e.g. `beforeRender`) can access the
+            // chart via the bound prop. Assigning after render() left it undefined
+            // during those events.
+            chart = internal.chart;
             internal.chart.render();
             internal.oldChartConfig = cloneObject(chartConfig);
-            // Expose the live instance for `bind:chart` consumers.
-            chart = internal.chart;
             rendered = true;
         });
 

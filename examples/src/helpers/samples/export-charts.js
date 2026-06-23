@@ -10,14 +10,12 @@ const code =
 
   let chartConfigColumn = {
       type: 'column2d',
-      renderAt: 'chart-container1',
       width: '600',
       height: '400',
       dataSource: dataSource.columnData
     },
     chartConfigStackedColumn = {
       type: 'stackedcolumn2d',
-      renderAt: 'chart-container2',
       width: '600',
       height: '400',
       dataSource: dataSource.stackedColumnData

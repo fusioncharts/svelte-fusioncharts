@@ -14,7 +14,6 @@ const code =
     chartObj,
     chartConfig = {
       type: 'dragcolumn2d',
-      renderAt: 'chart-container',
       width: '600',
       height: '400',
       dataSource

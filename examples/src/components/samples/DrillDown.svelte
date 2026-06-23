@@ -132,7 +132,6 @@
     },
     chartConfig = {
       type: 'column2d',
-      renderAt: 'chart-container',
       width: '100%',
       height: 450,
       dataSource

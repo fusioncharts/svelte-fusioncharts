@@ -205,14 +205,12 @@
     },
     chartConfigColumn = {
       type: 'column2d',
-      renderAt: 'chart-container1',
       width: '800',
       height: '475',
       dataSource: dataSource.columnData
     },
     chartConfigStackedColumn = {
       type: 'stackedcolumn2d',
-      renderAt: 'chart-container2',
       width: '800',
       height: '475',
       dataSource: dataSource.stackedColumnData
