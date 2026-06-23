@@ -13,7 +13,6 @@
       type: 'column2d',
       width: '600',
       height: '350',
-      renderAt: 'chart-container',
       dataSource: {
         "chart": {
           "caption": "Countries With Most Oil Reserves [2017-18]",

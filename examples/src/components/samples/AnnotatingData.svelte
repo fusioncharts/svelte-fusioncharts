@@ -100,7 +100,6 @@
       type: 'timeseries',
       width: '100%',
       height: 450,
-      renderAt: 'chart-container',
       dataSource 
     };
 
@@ -114,7 +113,6 @@
       type: 'timeseries',
       width: '100%',
       height: 450,
-      renderAt: 'chart-container',
       dataSource: {
         data: fusionTable,
         caption: {

@@ -6,10 +6,9 @@
 
   fcRoot(FusionCharts, Charts, FusionTheme);
 
-  let xmlUrl = 'https://static.fusioncharts.com/sample/oilReserves.xml',
+  let xmlUrl = 'https://cdn.fusioncharts.com/samples/data/oil-reserves.xml',
     chartConfig = {
       type: 'column2d',
-      renderAt: 'chart-container',
       width: '100%',
       height: 450,
       dataFormat: 'xmlurl',

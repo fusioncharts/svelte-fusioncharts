@@ -6,10 +6,9 @@
 
   fcRoot(FusionCharts, Charts, FusionTheme);
 
-  let jsonUrl = 'https://static.fusioncharts.com/sample/oilReserves.json',
+  let jsonUrl = 'https://cdn.fusioncharts.com/samples/data/oil-reserves.json',
     chartConfig = {
       type: 'column2d',
-      renderAt: 'chart-container',
       width: '100%',
       height: 450,
       dataFormat: 'jsonurl',

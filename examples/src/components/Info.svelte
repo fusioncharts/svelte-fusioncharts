@@ -151,9 +151,7 @@
   </div>
   <div class="row">
     <div class="col-12">
-      <p class="code-desc">From <code>fusioncharts@3.13.3-sr.1</code> You can visualize timeseries data easily with
-        Svelte.
-      </p>
+      <p class="code-desc">FusionCharts supports timeseries data via the FusionTime module.</p>
       <div class="h6 mt-2">
         Consider the example below for integration of FusionTime
       </div>
@@ -173,9 +171,9 @@
     <div class="col-12 pt-3">
       <div class="h5">Support</div>
       <p>
-        <a class="ref-link" href="https://github.com/priyanjitdey94/svelte-fusioncharts/issues" target="_blank">GitHub
+        <a class="ref-link" href="https://github.com/fusioncharts/svelte-fusioncharts/issues" target="_blank">GitHub
           Issues</a> |
-        <a class="ref-link" href="mailto:support@fusioncharts.com" target="_blank">Contact FusionCharts Support</a>
+        <a class="ref-link" href="https://www.fusioncharts.com/contact-support" target="_blank">Contact FusionCharts Support</a>
       </p>
     </div>
   </div>

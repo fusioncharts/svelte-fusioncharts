@@ -15,7 +15,6 @@ const code =
       type: 'column2d',
       width: '600',
       height: '350',
-      renderAt: 'chart-container',
       dataSource
     };
 

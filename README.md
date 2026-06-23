@@ -282,7 +282,6 @@ To call APIs we will need the chart object. To get the chart object for an Svelt
       type: 'pie2d',
       width: '600',
       height: '400',
-      renderAt: 'chart-container',
       dataSource
     };
 
@@ -317,7 +316,7 @@ links to help you get started:
 
 ## Usage and integration of FusionTime
 
-From `fusioncharts@3.13.3-sr.1`, You can visualize timeseries data.
+FusionCharts supports timeseries data via the FusionTime module.
 
 Learn more about FusionTime [here](https://www.fusioncharts.com/fusiontime).
 
@@ -350,7 +349,6 @@ Learn more about FusionTime [here](https://www.fusioncharts.com/fusiontime).
       type: 'timeseries',
       width: '100%',
       height: 450,
-      renderAt: 'chart-container',
       dataSource: {
         data: fusionTable,
         caption: {

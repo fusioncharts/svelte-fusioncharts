@@ -11,7 +11,6 @@
     type: 'spline',
     width: '100%',
     height: 450,
-    renderAt: 'chart-container',
     dataSource: {
       "chart": {
         "caption": "Bakersfield Central - Total footfalls",

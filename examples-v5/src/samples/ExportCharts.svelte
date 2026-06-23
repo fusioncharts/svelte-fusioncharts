@@ -116,5 +116,5 @@
   <SvelteFC {...chartConfigStackedColumn} />
 </div>
 <div style="text-align: center; padding-top: 5px;">
-  <button on:click={exportHandler}>Export Both charts as a single pdf</button>
+  <button onclick={exportHandler}>Export Both charts as a single pdf</button>
 </div>

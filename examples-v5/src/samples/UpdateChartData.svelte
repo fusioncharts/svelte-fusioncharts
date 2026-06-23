@@ -70,5 +70,5 @@
   <SvelteFC {...chartConfig} />
 </div>
 <div style="text-align: center; padding-top: 5px;">
-  <button on:click={updateDataHandler}>Click to Update Data</button>
+  <button onclick={updateDataHandler}>Click to Update Data</button>
 </div>

@@ -12,7 +12,6 @@
       type: 'pie2d',
       width: '100%',
       height: 400,
-      renderAt: 'chart-container',
       dataSource: {
         "chart": {
           "caption": "Market Share of Web Servers",

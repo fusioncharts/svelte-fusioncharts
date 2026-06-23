@@ -141,7 +141,7 @@
         name="rc-size-selecter"
         id="rcRadioButton1"
         type="radio"
-        on:change={() => {
+        onchange={() => {
           resizeChart(400, 250);
         }}
       >
@@ -152,7 +152,7 @@
         name="rc-size-selecter"
         id="rcRadioButton2"
         type="radio"
-        on:change={() => {
+        onchange={() => {
           resizeChart(600, 350);
         }}
         checked="checked"
@@ -164,7 +164,7 @@
         name="rc-size-selecter"
         id="rcRadioButton3"
         type="radio"
-        on:change={() => {
+        onchange={() => {
           resizeChart(700, 400);
         }}
       >

@@ -130,7 +130,7 @@
         name="cct-type-selecter"
         id="cctRadioButton1"
         type="radio"
-        on:change={() => {
+        onchange={() => {
           changeChartTypeHandler('column2d');
         }}
         checked="checked"
@@ -142,7 +142,7 @@
         name="cct-type-selecter"
         id="cctRadioButton2"
         type="radio"
-        on:change={() => {
+        onchange={() => {
           changeChartTypeHandler('bar2d');
         }}
       >
@@ -153,7 +153,7 @@
         name="cct-type-selecter"
         id="cctRadioButton3"
         type="radio"
-        on:change={() => {
+        onchange={() => {
           changeChartTypeHandler('pie2d');
         }}
       >
