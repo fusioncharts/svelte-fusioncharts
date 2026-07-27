@@ -2,7 +2,7 @@
   import FusionCharts from 'fusioncharts';
   import Widgets from 'fusioncharts/fusioncharts.widgets';
   import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
-  import SvelteFC, { fcRoot } from '../../../../index.mjs';
+  import SvelteFC, { fcRoot } from '../../../../src/index.svelte';
 
   fcRoot(FusionCharts, Widgets, FusionTheme);
 
@@ -41,7 +41,6 @@
       type: 'angulargauge',
       width: '100%',
       height: '450',
-      renderAt: 'chart-container',
       dataSource
     };
 </script>

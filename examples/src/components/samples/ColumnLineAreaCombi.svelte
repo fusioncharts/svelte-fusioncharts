@@ -2,7 +2,7 @@
   import FusionCharts from 'fusioncharts';
   import Charts from 'fusioncharts/fusioncharts.charts';
   import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
-  import SvelteFC, { fcRoot } from '../../../../index.mjs';
+  import SvelteFC, { fcRoot } from '../../../../src/index.svelte';
 
   fcRoot(FusionCharts, Charts, FusionTheme);
 
@@ -10,7 +10,6 @@
     type: 'mscombi2d',
     width: '100%',
     height: 450,
-    renderAt: 'chart-container',
     dataSource: {
       "chart": {
         "caption": "Expense Analysis",

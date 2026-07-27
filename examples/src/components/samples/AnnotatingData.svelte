@@ -1,7 +1,7 @@
 <script>
   import FusionCharts from 'fusioncharts';
   import Timeseries from 'fusioncharts/fusioncharts.timeseries';
-  import SvelteFC, { fcRoot } from '../../../../index.mjs';
+  import SvelteFC, { fcRoot } from '../../../../src/index.svelte';
 
   fcRoot(FusionCharts, Timeseries);
 
@@ -100,7 +100,6 @@
       type: 'timeseries',
       width: '100%',
       height: 450,
-      renderAt: 'chart-container',
       dataSource 
     };
 
@@ -114,7 +113,6 @@
       type: 'timeseries',
       width: '100%',
       height: 450,
-      renderAt: 'chart-container',
       dataSource: {
         data: fusionTable,
         caption: {

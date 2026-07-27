@@ -34,6 +34,20 @@ A simple and lightweight official Svelte component for FusionCharts JavaScript c
 - **Node.js**, **NPM/Yarn** installed globally in your OS.
 - **FusionCharts** and **Svelte** installed in your project, as detailed below:
 
+#### Svelte compatibility
+
+`svelte-fusioncharts` works with **both Svelte 4 and Svelte 5** (declared as a peer
+dependency: `^4.0.0 || ^5.0.0`).
+
+The package ships the uncompiled `.svelte` source (the modern Svelte library
+packaging model) and is compiled by your app's own Svelte version. This means you
+need a Svelte-aware bundler — any of
+[`@sveltejs/vite-plugin-svelte`](https://github.com/sveltejs/vite-plugin-svelte),
+[`svelte-loader`](https://github.com/sveltejs/svelte-loader), or
+[`rollup-plugin-svelte`](https://github.com/sveltejs/rollup-plugin-svelte) — which
+every SvelteKit / Vite / Svelte project already has. No extra configuration is
+required.
+
 ### Installation
 
 There are multiple ways to install `svelte-fusioncharts` component.
@@ -268,7 +282,6 @@ To call APIs we will need the chart object. To get the chart object for an Svelt
       type: 'pie2d',
       width: '600',
       height: '400',
-      renderAt: 'chart-container',
       dataSource
     };
 
@@ -303,7 +316,7 @@ links to help you get started:
 
 ## Usage and integration of FusionTime
 
-From `fusioncharts@3.13.3-sr.1`, You can visualize timeseries data.
+FusionCharts supports timeseries data via the FusionTime module.
 
 Learn more about FusionTime [here](https://www.fusioncharts.com/fusiontime).
 
@@ -336,7 +349,6 @@ Learn more about FusionTime [here](https://www.fusioncharts.com/fusiontime).
       type: 'timeseries',
       width: '100%',
       height: 450,
-      renderAt: 'chart-container',
       dataSource: {
         data: fusionTable,
         caption: {
@@ -387,16 +399,26 @@ Useful links for FusionTime
 
 ## For Contributors
 
-- Clone the repository and install dependencies
+The library itself is the `.svelte` source under [`src/`](src) — there is no build
+step (the package ships source). To run it against real charts, use one of the two
+example apps:
+
+- [`examples/`](examples) — **Svelte 4** gallery (webpack + `svelte-loader`).
+- [`examples-v5/`](examples-v5) — **Svelte 5** app (Vite + `@sveltejs/vite-plugin-svelte`).
 
 ```
 git clone https://github.com/fusioncharts/svelte-fusioncharts.git
 cd svelte-fusioncharts
-npm i
-npm run dev
+
+# Svelte 4 examples
+cd examples && npm i && npm run dev
+
+# Svelte 5 examples
+cd examples-v5 && npm i && npm run dev
 ```
 
-- Run `npm run build` to create a production build.
+Both example apps consume the wrapper directly from this repo, so any change to
+`src/index.svelte` is picked up immediately.
 
 ## Licensing
 

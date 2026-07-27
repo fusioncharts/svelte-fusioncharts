@@ -3,7 +3,7 @@
   import Charts from 'fusioncharts/fusioncharts.charts';
   
   import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
-  import SvelteFC, { fcRoot } from '../../../../index.mjs';
+  import SvelteFC, { fcRoot } from '../../../../src/index.svelte';
 
   fcRoot(FusionCharts, Charts, FusionTheme);
 
@@ -13,7 +13,6 @@
       type: 'column2d',
       width: '600',
       height: '350',
-      renderAt: 'chart-container',
       dataSource: {
         "chart": {
           "caption": "Countries With Most Oil Reserves [2017-18]",

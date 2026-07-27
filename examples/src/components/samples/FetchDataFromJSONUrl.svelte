@@ -2,14 +2,13 @@
   import FusionCharts from 'fusioncharts';
   import Charts from 'fusioncharts/fusioncharts.charts';
   import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
-  import SvelteFC, { fcRoot } from '../../../../index.mjs';
+  import SvelteFC, { fcRoot } from '../../../../src/index.svelte';
 
   fcRoot(FusionCharts, Charts, FusionTheme);
 
-  let jsonUrl = 'https://static.fusioncharts.com/sample/oilReserves.json',
+  let jsonUrl = 'https://cdn.fusioncharts.com/samples/data/oil-reserves.json',
     chartConfig = {
       type: 'column2d',
-      renderAt: 'chart-container',
       width: '100%',
       height: 450,
       dataFormat: 'jsonurl',

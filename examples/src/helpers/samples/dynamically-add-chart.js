@@ -15,7 +15,6 @@ const code =
     disableButton,
     chartConfig = {
       type: 'column2d',
-      renderAt: 'chart-container',
       width: '600',
       height: '400',
       dataSource

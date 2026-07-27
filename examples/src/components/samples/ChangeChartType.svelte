@@ -3,7 +3,7 @@
   import Charts from 'fusioncharts/fusioncharts.charts';
   
   import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
-  import SvelteFC, { fcRoot } from '../../../../index.mjs';
+  import SvelteFC, { fcRoot } from '../../../../src/index.svelte';
 
   import { sampleNames } from '../utils/constants.js';
 
@@ -15,7 +15,6 @@
       type: 'column2d',
       width: '100%',
       height: 400,
-      renderAt: 'chart-container',
       dataSource: {
         "chart": {
           "caption": "Recommended Portfolio Split",

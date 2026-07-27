@@ -2,7 +2,7 @@
   import FusionCharts from 'fusioncharts';
   import Charts from 'fusioncharts/fusioncharts.charts';
   import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
-  import SvelteFC, { fcRoot } from '../../../../index.mjs';
+  import SvelteFC, { fcRoot } from '../../../../src/index.svelte';
 
   fcRoot(FusionCharts, Charts, FusionTheme);
 
@@ -205,14 +205,12 @@
     },
     chartConfigColumn = {
       type: 'column2d',
-      renderAt: 'chart-container1',
       width: '800',
       height: '475',
       dataSource: dataSource.columnData
     },
     chartConfigStackedColumn = {
       type: 'stackedcolumn2d',
-      renderAt: 'chart-container2',
       width: '800',
       height: '475',
       dataSource: dataSource.stackedColumnData

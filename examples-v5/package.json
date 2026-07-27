@@ -1,0 +1,21 @@
+{
+  "name": "svelte-fusioncharts-examples-v5",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Svelte 5 example app for svelte-fusioncharts (Vite + @sveltejs/vite-plugin-svelte).",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^7.0.0",
+    "svelte": "^5.0.0",
+    "vite": "^8.0.0"
+  },
+  "dependencies": {
+    "fusioncharts": "^4.2.2",
+    "svelte-fusioncharts": "file:.."
+  }
+}
