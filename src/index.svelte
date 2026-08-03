@@ -37,7 +37,7 @@
         chart;
 
     // `renderAt` is accepted for backward-compatible API parity but intentionally
-    // ignored — the chart always renders into the wrapper's own generated <div>.
+    // ignored. The chart always renders into the wrapper's own generated <div>.
     // The reference keeps both the Svelte 4 and Svelte 5 compilers from warning
     // about an unused export.
     void renderAt;
@@ -51,7 +51,7 @@
      * - `chart` is the live FusionCharts instance. We deliberately do NOT use the
      *   `chart` prop for internal logic: in Svelte 5, when the parent re-renders
      *   (e.g. spreading `{...config}` on a data update), an `export let` prop that
-     *   the parent doesn't pass is reset to `undefined` — which would wipe our
+     *   the parent doesn't pass is reset to `undefined`, which would wipe our
      *   reference mid-update. The prop is still assigned (below) so `bind:chart`
      *   keeps working for consumers.
      * - `oldChartConfig` is the diff baseline. The update logic reads and writes it

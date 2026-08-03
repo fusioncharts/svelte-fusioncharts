@@ -9,6 +9,9 @@ dist/
 build/
 .svelte-kit/
 
+# npm pack artifacts
+*.tgz
+
 # Test / coverage
 coverage/
 

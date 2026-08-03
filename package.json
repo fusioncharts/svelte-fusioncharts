@@ -1,8 +1,12 @@
 {
   "name": "svelte-fusioncharts",
-  "version": "2.0.0",
+  "version": "2.0.0-rc.0",
   "description": "A simple and lightweight official Svelte component for FusionCharts JavaScript charting library. `svelte-fusioncharts` enables you to add JavaScript charts in your Svelte application or project without any hassle. Works with both Svelte 4 and Svelte 5.",
   "type": "module",
+  "scripts": {
+    "verify:package": "node scripts/verify-package.mjs",
+    "prepublishOnly": "npm run verify:package"
+  },
   "svelte": "./src/index.svelte",
   "types": "./index.d.ts",
   "exports": {

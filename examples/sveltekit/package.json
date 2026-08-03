@@ -1,0 +1,27 @@
+{
+	"name": "svelte-fusioncharts-example-sveltekit",
+	"private": true,
+	"version": "1.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"prepare": "svelte-kit sync || echo ''",
+		"lint": "prettier --check .",
+		"format": "prettier --write ."
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-auto": "^7.0.1",
+		"@sveltejs/kit": "^2.63.0",
+		"@sveltejs/vite-plugin-svelte": "^7.1.2",
+		"prettier": "^3.8.3",
+		"prettier-plugin-svelte": "^4.1.0",
+		"svelte": "^5.56.1",
+		"vite": "^8.0.16"
+	},
+	"dependencies": {
+		"fusioncharts": "^4.2.2",
+		"svelte-fusioncharts": "^2.0.0-rc.0"
+	}
+}
