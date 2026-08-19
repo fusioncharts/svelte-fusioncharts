@@ -1,0 +1,163 @@
+name: Svelte compatibility and release checks
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches: [main, develop]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: svelte-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  NODE_VERSION: 22.19.0
+
+jobs:
+  package:
+    name: Package contents · verify:package
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out candidate
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Configure Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      # No install step: the wrapper declares zero dependencies and
+      # scripts/verify-package.mjs runs on plain Node.
+      # Only `dependencies` matter here: they are what a consumer inherits.
+      # devDependencies never reach the tarball, so gating on them would just
+      # block future tooling (a formatter, a test runner) for no benefit.
+      - name: Assert the published package stays dependency free
+        run: |
+          node -e '
+            const p = require("./package.json");
+            const deps = Object.keys(p.dependencies || {});
+            if (deps.length) {
+              console.error("Unexpected dependencies in package.json: " + deps.join(", "));
+              process.exit(1);
+            }
+          '
+      - name: Pack the real tarball and validate every entry point
+        run: npm run verify:package
+
+  examples:
+    name: Example · ${{ matrix.example }} · node ${{ matrix.node }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        # Vite 8 requires ^20.19.0 || >=22.12.0, which is the real floor for
+        # the two Svelte 5 apps. 20 is the oldest supported line, 24 is current.
+        example: [svelte4-webpack, svelte5-vite, sveltekit]
+        node: [20, 22, 24]
+    steps:
+      - name: Check out candidate
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Configure Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+          cache-dependency-path: examples/${{ matrix.example }}/package-lock.json
+
+      # Pass 1 proves the shipped contract: the lockfile is in sync, the
+      # wrapper resolves from the registry, and the app builds against the
+      # version a real consumer would install.
+      - name: Install locked dependencies from the registry
+        working-directory: examples/${{ matrix.example }}
+        run: npm ci
+      - name: Assert the wrapper came from the registry, not a local path
+        working-directory: examples/${{ matrix.example }}
+        run: |
+          if [ -L node_modules/svelte-fusioncharts ]; then
+            echo "svelte-fusioncharts is a symlink; the lockfile still points at a local path"
+            exit 1
+          fi
+          grep -q 'registry.npmjs.org/svelte-fusioncharts' package-lock.json
+      - name: Build against the published wrapper
+        working-directory: examples/${{ matrix.example }}
+        run: npm run build
+
+      # Pass 2 is the one that actually tests this branch: the same app,
+      # rebuilt against a tarball packed from the working tree.
+      - name: Pack the working tree
+        run: echo "TARBALL=$(npm pack --silent)" >> "$GITHUB_ENV"
+      - name: Reinstall the wrapper from the packed tarball
+        working-directory: examples/${{ matrix.example }}
+        run: |
+          npm install "$GITHUB_WORKSPACE/$TARBALL" --no-save
+          # Vite caches pre-bundled deps and will otherwise serve the
+          # registry copy it saw during pass 1.
+          rm -rf node_modules/.vite .svelte-kit
+      # Without this, pass 2 is unfalsifiable. The tarball carries the same
+      # version string as the registry copy, and `npm ls` keeps reporting the
+      # registry URL from the lockfile even after the swap, so a no-op install
+      # would leave CI green while testing the published package twice.
+      - name: Assert the installed wrapper is the working tree
+        working-directory: examples/${{ matrix.example }}
+        run: |
+          diff -r "$GITHUB_WORKSPACE/src" node_modules/svelte-fusioncharts/src
+          diff "$GITHUB_WORKSPACE/index.d.ts" node_modules/svelte-fusioncharts/index.d.ts
+      - name: Rebuild against the working tree
+        working-directory: examples/${{ matrix.example }}
+        run: npm run build
+
+  standalone:
+    name: Self sufficiency · sveltekit outside the repo
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out candidate
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Configure Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      # A user must be able to lift an example out of the repo and run it.
+      # Copying it to a sibling of the checkout is what proves that: any
+      # surviving relative path back into the repo breaks the install.
+      - name: Copy the SvelteKit example outside the checkout
+        run: cp -R examples/sveltekit "$RUNNER_TEMP/standalone-sveltekit"
+      - name: Assert nothing points back into the repo
+        working-directory: ${{ runner.temp }}/standalone-sveltekit
+        run: |
+          rm -rf node_modules .svelte-kit
+          if grep -nE '"file:|\.\./\.\.' package.json package-lock.json; then
+            echo "Found a path back into the repo"
+            exit 1
+          fi
+      - name: Install and build standalone
+        working-directory: ${{ runner.temp }}/standalone-sveltekit
+        run: |
+          npm ci
+          npm run build
+
+  audit:
+    name: Dependency audit · ${{ matrix.example }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        example: [svelte4-webpack, svelte5-vite, sveltekit]
+    steps:
+      - name: Check out candidate
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Configure Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      # Coarse gate only. OSV remains the authoritative scan and is run
+      # per release into deliverables/svelte/security/. Mediums are
+      # accepted as Category C (svelte@4.2.20 has no non-breaking fix),
+      # so this fails on high and critical only.
+      - name: Audit ${{ matrix.example }}
+        working-directory: examples/${{ matrix.example }}
+        run: npm audit --audit-level=high
