@@ -17,6 +17,8 @@ A simple and lightweight official Svelte component for FusionCharts JavaScript c
 
 - [Getting Started](#getting-started)
   - [Requirements](#requirements)
+  - [Using with SvelteKit](#using-with-sveltekit)
+  - [Using with plain Vite](#using-with-plain-vite-not-sveltekit)
   - [Installation](#installation)
   - [Usage](#usage)
   - [Working with chart API](#working-with-apis)
@@ -33,6 +35,65 @@ A simple and lightweight official Svelte component for FusionCharts JavaScript c
 
 - **Node.js**, **NPM/Yarn** installed globally in your OS.
 - **FusionCharts** and **Svelte** installed in your project, as detailed below:
+
+#### Svelte compatibility
+
+`svelte-fusioncharts` works with **both Svelte 4 and Svelte 5** (declared as a peer
+dependency: `^4.0.0 || ^5.0.0`).
+
+The package ships the uncompiled `.svelte` source (the modern Svelte library
+packaging model) and is compiled by your app's own Svelte version. This means you
+need a Svelte-aware bundler, any of
+[`@sveltejs/vite-plugin-svelte`](https://github.com/sveltejs/vite-plugin-svelte),
+[`svelte-loader`](https://github.com/sveltejs/svelte-loader), or
+[`rollup-plugin-svelte`](https://github.com/sveltejs/rollup-plugin-svelte). Every
+SvelteKit / Vite / Svelte project already has one. Most setups work with just
+the install, but a couple of environments need a one-line tweak, covered below.
+
+### Using with SvelteKit
+
+Charts always render in the browser. FusionCharts needs a live DOM, so the chart
+itself is drawn on the client in both Svelte and SvelteKit. The one thing to know:
+FusionCharts reads `document` the moment it's imported, so it can't be imported
+during server-side rendering. On a normal SvelteKit page the `import` runs on the
+server and you'll hit `ReferenceError: document is not defined`.
+
+The simplest fix is to render chart routes on the client only. One line does it,
+put it on a page, or on a layout to cover a whole dashboard:
+
+```js
+// src/routes/dashboard/+page.js   (or +layout.js for a whole section)
+export const ssr = false;
+```
+
+Every chart under that route then works with the normal import + `fcRoot` setup,
+no per-component workarounds needed.
+
+If you need SSR on the rest of a page and only have an isolated chart, import just
+that chart component lazily from `onMount` instead:
+
+```svelte
+<script>
+  import { onMount } from 'svelte';
+  let Chart = $state(null);
+  onMount(async () => { Chart = (await import('$lib/MyChart.svelte')).default; });
+</script>
+
+{#if Chart}<Chart />{/if}
+```
+
+### Using with plain Vite (not SvelteKit)
+
+Vite pre-bundles dependencies with esbuild, which can't parse `.svelte`. Exclude
+this package so the Svelte plugin compiles it instead:
+
+```js
+// vite.config.js
+export default defineConfig({
+  plugins: [svelte()],
+  optimizeDeps: { exclude: ['svelte-fusioncharts'] }
+});
+```
 
 ### Installation
 
@@ -268,7 +329,6 @@ To call APIs we will need the chart object. To get the chart object for an Svelt
       type: 'pie2d',
       width: '600',
       height: '400',
-      renderAt: 'chart-container',
       dataSource
     };
 
@@ -303,7 +363,7 @@ links to help you get started:
 
 ## Usage and integration of FusionTime
 
-From `fusioncharts@3.13.3-sr.1`, You can visualize timeseries data.
+FusionCharts supports timeseries data via the FusionTime module.
 
 Learn more about FusionTime [here](https://www.fusioncharts.com/fusiontime).
 
@@ -336,7 +396,6 @@ Learn more about FusionTime [here](https://www.fusioncharts.com/fusiontime).
       type: 'timeseries',
       width: '100%',
       height: 450,
-      renderAt: 'chart-container',
       dataSource: {
         data: fusionTable,
         caption: {
@@ -387,16 +446,87 @@ Useful links for FusionTime
 
 ## For Contributors
 
-- Clone the repository and install dependencies
+The library itself is the `.svelte` source under [`src/`](src). There is no build
+step (the package ships source). To run it against real charts, use one of the
+example apps under [`examples/`](examples):
+
+- [`examples/svelte4-webpack/`](examples/svelte4-webpack): **Svelte 4** gallery (webpack + `svelte-loader`).
+- [`examples/svelte5-vite/`](examples/svelte5-vite): **Svelte 5** app (Vite + `@sveltejs/vite-plugin-svelte`).
+- [`examples/sveltekit/`](examples/sveltekit): **SvelteKit** app (Svelte 5, SSR, with the client-only chart guard).
 
 ```
 git clone https://github.com/fusioncharts/svelte-fusioncharts.git
 cd svelte-fusioncharts
-npm i
-npm run dev
+
+# pick one:
+cd examples/svelte4-webpack && npm i && npm run dev
+cd examples/svelte5-vite   && npm i && npm run dev
+cd examples/sveltekit      && npm i && npm run dev
 ```
 
-- Run `npm run build` to create a production build.
+Each example app declares a normal registry dependency on `svelte-fusioncharts`,
+exactly like an application in the wild would. That is deliberate: it means you can
+copy any one of these directories out of the repo, run `npm install`, and it works
+standalone with no reference back to this tree.
+
+The tradeoff is that a plain `npm install` gives you the **published** wrapper, not
+your working copy. If you are changing the wrapper itself, point an example at your
+local source, described next.
+
+### Working on the wrapper itself
+
+Two ways to run an example against your local changes instead of the published
+package. Neither should be committed.
+
+**Option 1, live source (fastest iteration).** npm resolves this as a symlink to the
+repo root, so edits to `src/index.svelte` take effect with no reinstall:
+
+```
+cd examples/svelte5-vite
+npm install ../.. --no-save
+```
+
+**Option 2, real tarball (highest fidelity).** This installs the exact payload that
+`npm publish` would upload, extracted into `node_modules` as a real directory rather
+than a symlink:
+
+```
+npm pack                       # from the repo root, writes svelte-fusioncharts-<version>.tgz
+cd examples/svelte5-vite
+npm install ../../svelte-fusioncharts-<version>.tgz --no-save
+```
+
+Prefer Option 2 before publishing anything. A symlinked wrapper resolves to a path
+with no `node_modules` segment in it, and some toolchains key behaviour off that.
+The SvelteKit/Vite templates, for instance, treat files outside `node_modules` as
+first-party source and can force them into runes mode, which makes a Svelte 4
+compatible wrapper fail to compile for reasons that have nothing to do with your
+change. Option 2 does not have that problem, because the install looks like every
+other dependency.
+
+To get back to the published package, run `npm install` again.
+
+Two things worth knowing while iterating:
+
+- After editing wrapper source under Option 1, Vite may still serve the old code from
+  its dependency cache. Run `rm -rf node_modules/.vite` and restart the dev server.
+  A full reinstall is not needed, since the link is live.
+- FusionCharts is browser only and touches `document` at import time, so any static
+  import of it breaks SSR. That is why the SvelteKit example sets
+  `export const ssr = false`.
+
+### Verifying what gets published
+
+The `files` allowlist in `package.json` decides what actually ships. A local link or
+a stale install can hide a gap in it, and a real `npm install` would then fail for
+every consumer. This check packs the tarball npm would publish and asserts that
+every entry point and relative import is inside it:
+
+```
+npm run verify:package
+```
+
+It also runs automatically on `prepublishOnly`, so a publish cannot skip it.
 
 ## Licensing
 

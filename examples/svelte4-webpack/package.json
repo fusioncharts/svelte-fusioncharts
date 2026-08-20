@@ -1,0 +1,28 @@
+{
+  "name": "svelte-fusioncharts-example-svelte4-webpack",
+  "version": "1.0.0",
+  "devDependencies": {
+    "cross-env": "^5.2.0",
+    "css-loader": "^7.1.1",
+    "mini-css-extract-plugin": "^2.9.0",
+    "style-loader": "^4.0.0",
+    "svelte": "^4.2.15",
+    "svelte-loader": "3.2.0",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4"
+  },
+  "scripts": {
+    "build": "cross-env NODE_ENV=production webpack",
+    "dev": "webpack-dev-server --mode development"
+  },
+  "dependencies": {
+    "codemirror": "^5.48.4",
+    "fusioncharts": "^3.23.0",
+    "svelte-fusioncharts": "^2.0.0-rc.0"
+  },
+  "overrides": {
+    "http-proxy-middleware": "^2.0.10",
+    "uuid": "^11.1.1"
+  }
+}
