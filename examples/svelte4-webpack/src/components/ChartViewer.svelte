@@ -17,7 +17,7 @@
   import MultiSeriesTimeAxis from './samples/MultiSeriesTimeAxis.svelte';
   import MultivariateTimeseries from './samples/MultivariateTimeseries.svelte';
   import PercentageCalculation from './samples/PercentageCalculation.svelte';
-  import Pie3DChart from './samples/Pie3DChart.svelte';
+  import Pie3DChart from './samples/Pie3dChart.svelte';
   import RenderAlert from './samples/RenderAlert.svelte';
   import ResponsiveCharts from './samples/ResponsiveCharts.svelte';
   import SimpleChart from './samples/SimpleChart.svelte';
