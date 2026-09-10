@@ -102,8 +102,10 @@ There are multiple ways to install `svelte-fusioncharts` component.
 **Install from NPM**
 
 ```
-npm install --save svelte-fusioncharts
+npm install --save svelte-fusioncharts fusioncharts
 ```
+
+`fusioncharts` is a peer dependency, so install it alongside the wrapper.
 
 See [npm documentation](https://docs.npmjs.com/) to know more about npm usage.
 
