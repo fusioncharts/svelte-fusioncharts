@@ -1,4 +1,28 @@
+# Dependencies
+node_modules/
+
+# macOS
 .DS_Store
-node_modules
-yarn.lock
-package-lock.json
+
+# Build outputs
+dist/
+build/
+.svelte-kit/
+
+# npm pack artifacts
+*.tgz
+
+# Test / coverage
+coverage/
+
+# Logs
+npm-debug.log*
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# IDE / editor
+.vscode/
+.idea/
