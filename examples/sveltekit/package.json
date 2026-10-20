@@ -18,7 +18,7 @@
 		"prettier": "^3.8.3",
 		"prettier-plugin-svelte": "^4.1.0",
 		"svelte": "^5.56.1",
-		"vite": "^8.0.16"
+		"vite": "^8.3.4"
 	},
 	"dependencies": {
 		"fusioncharts": "^4.2.2",
